@@ -1,0 +1,48 @@
+# Node
+node_modules/
+dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Raw datasets / videos
+datasets/
+dataset/
+raw_data/
+data/raw/
+videos/
+raw_videos/
+
+# Model weights / training outputs
+*.pt
+*.pth
+*.ckpt
+runs/
+outputs/
+checkpoints/
+
+# Logs
+*.log
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp

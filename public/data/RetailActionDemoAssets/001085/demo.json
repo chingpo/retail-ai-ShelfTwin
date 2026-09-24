@@ -1,0 +1,23 @@
+{
+  "trajectory": [],
+  "events": [
+    {
+      "id": "event-2",
+      "t": 1.95,
+      "type": "PICK",
+      "item": "Shelf interaction",
+      "aisle": "Annotated shelf",
+      "x": 0.65,
+      "z": 3.02
+    },
+    {
+      "id": "event-1",
+      "t": 4.23,
+      "type": "PUT BACK",
+      "item": "Shelf interaction",
+      "aisle": "Annotated shelf",
+      "x": 0.53,
+      "z": 2.63
+    }
+  ]
+}

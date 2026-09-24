@@ -1,0 +1,9 @@
+Retail AI ShelfTwin includes selected RetailAction dataset materials.
+
+RetailAction is licensed under the Standard.AI Dataset License.
+Copyright © Standard Corp. All Rights Reserved.
+
+Source: https://huggingface.co/datasets/standard-cognition/RetailAction
+
+The included sample materials are deidentified. Do not attempt to reidentify
+individuals. See the upstream dataset license for complete terms.
