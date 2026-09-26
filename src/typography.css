@@ -1,0 +1,32 @@
+:root,body,button,input,select{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important}
+body{font-size:15px!important;font-weight:400;line-height:1.5}
+.eyebrow,.panel-title,.status,.filter-chip,.prototype-note,.product-lens-heading>span,.product-lens-note,.nav-footer span,.nav-footer small{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:12px!important;font-weight:600!important;letter-spacing:.025em!important}
+.eyebrow{color:#52685d!important;text-transform:none}
+h1{font-size:32px!important;font-weight:700!important;line-height:1.1!important;letter-spacing:-.045em!important}
+.product-lens-heading h2,.clusters h2{font-size:22px!important;font-weight:700!important;line-height:1.2!important}
+.panel-title{font-size:13px!important;font-weight:600!important}
+.side-nav nav button{font-size:14px!important;font-weight:500!important}
+.brand-copy strong{font-size:16px!important;font-weight:700!important}
+.brand-copy span{font-size:12px!important}
+.filter-chip,.status{font-size:13px!important;font-weight:500!important}
+.prototype-note{font-size:13px!important;font-weight:500!important;line-height:1.55!important}
+.product-catalog span{font-size:14px!important;font-weight:600!important;line-height:1.3!important}
+.product-catalog small,.cluster-list span small{font-size:12px!important;font-weight:400!important;letter-spacing:0!important}
+.product-identity h3,.cluster-detail-title h3{font-size:18px!important;font-weight:700!important}
+.product-identity p,.cluster-detail-title p{font-size:14px!important;line-height:1.45!important}
+.product-metrics b,.cluster-metrics b{font-size:22px!important;font-weight:700!important}
+.product-metrics span,.cluster-metrics span{font-size:12px!important;font-weight:500!important;letter-spacing:0!important}
+.product-events small,.cluster-video-list small,.product-identity small,.cluster-detail-title small{font-size:12px!important;font-weight:600!important;letter-spacing:.025em!important}
+.product-events button,.cluster-video-list button{font-size:14px!important;line-height:1.4!important}
+.product-events button span,.product-events button em,.cluster-video-list button span,.cluster-video-list button em{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:13px!important}
+.event-list strong{font-size:13px!important;font-weight:700!important}
+.event-list span{font-size:14px!important;line-height:1.4!important}
+.event-list time,.event-list em,.scrubber span{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:13px!important;font-weight:500!important}
+.events h2,.inspector-heading h2{font-size:20px!important;font-weight:700!important}
+.event-context small,.provenance-grid small{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:12px!important;font-weight:600!important;letter-spacing:.025em!important}
+.event-context strong{font-size:16px!important;font-weight:700!important}
+.event-context em,.event-context p,.event-context li{font-size:14px!important;line-height:1.5!important}
+.evidence-tags span{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:12px!important;font-weight:600!important;letter-spacing:.02em!important}
+.provenance-grid span,.inspector-note{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:13px!important;font-weight:400!important;line-height:1.5!important}
+.ask-agent,.agent-dialog input,.agent-dialog form button,.agent-answer button{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important}
+.agent-dialog input{font-size:14px!important}.agent-answer h2{font-size:19px!important}.agent-answer>p:not(.eyebrow){font-size:14px!important}.agent-answer>small,.agent-footnote{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;font-size:12px!important;line-height:1.5!important}

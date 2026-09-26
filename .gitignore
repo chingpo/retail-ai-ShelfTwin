@@ -46,3 +46,16 @@ checkpoints/
 # Temporary files
 *.tmp
 *.swp
+
+# Local documentation
+*.md
+*.MD
+
+# Dataset assets and derived annotations (keep store-config.json)
+/public/data/RetailActionDemoAssets/
+/public/data/day-in-the-life/
+
+# Local exports
+*.textClipping
+*.tar
+*.tar.gz

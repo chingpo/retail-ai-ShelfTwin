@@ -1,0 +1,39 @@
+.events {
+  color: #24352d !important;
+  background: #ffffff !important;
+}
+
+.events .eyebrow,
+.events h2 {
+  color: #24352d !important;
+}
+
+.events .video-timeline,
+.events .event-list {
+  color: #24352d !important;
+  background: transparent !important;
+}
+
+.events .event-list button,
+.events .event-list button:hover,
+.events .event-list button.selected {
+  color: #24352d !important;
+  background: #f1f5f2 !important;
+  border-color: #c6d2ca !important;
+}
+
+.events .event-list time {
+  color: #405d50 !important;
+}
+
+.events .event-list strong {
+  color: #8b4a2c !important;
+}
+
+.events .event-list span {
+  color: #24352d !important;
+}
+
+.events .event-list em {
+  color: #285d48 !important;
+}
