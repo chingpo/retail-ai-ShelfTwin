@@ -1,0 +1,13 @@
+export type Point = { t: number; x: number; z: number }
+export type RetailEvent = { id: string; t: number; type: 'PICK' | 'PUT BACK' | 'TOUCH'; item: string; aisle: string; x?: number; z?: number }
+export type DemoData = { trajectory: Point[]; events: RetailEvent[]; journey?: { trackId: string; duration: number; source: string } }
+export type ProductCandidate = { name: string; confidence: number }
+export type Shelf = { id: string; name: string; category: string; map_zone: { x: number; z: number; width: number; depth: number }; sku_candidates: ProductCandidate[] }
+export type StoreConfig = { mode?: 'prototype_replay' | 'production'; provenance?: { interaction_video?: string; store_map?: string; product_catalog?: string }; shelves: Shelf[]; event_shelves: Record<string, string> }
+export type ShopperSource = { id: string; label: string; video: string; data: string }
+export type IndexedEvent = RetailEvent & { eventRef: string; shopperId: string; shopperLabel: string; video: string; shelfId?: string }
+export type DataStatus = 'loading' | 'ready' | 'error'
+export type QueryContext = { events: IndexedEvent[]; shelves: Shelf[]; status: DataStatus; errors: string[] }
+export type EventFilter = { shelfId?: string; category?: string; shopperId?: string; action?: RetailEvent['type'] }
+export type Cluster = { shelf: Shelf; events: IndexedEvent[]; shoppers: number; picks: number; puts: number }
+export type ToolResult<T> = { data_status: DataStatus; scope: 'curated_cross_sample'; result: T; evidence_refs: string[]; errors: string[]; provenance: { action: string; shelf: string; product: string } }

@@ -8,25 +8,170 @@
   },
   "coordinate_system": "glb-floor-xz",
   "shelves": [
-    { "id": "shelf-beverages-02", "name": "Beverages · Aisle 02", "category": "Beverages", "map_zone": { "x": -1.5, "z": -0.24, "width": 1.8, "depth": 0.85 }, "sku_candidates": [{ "name": "Sparkling water 500 ml", "confidence": 0.76 }, { "name": "Orange soda 500 ml", "confidence": 0.18 }, { "name": "Still water 600 ml", "confidence": 0.06 }] },
-    { "id": "shelf-snacks-01", "name": "Snacks · Aisle 01", "category": "Snacks", "map_zone": { "x": 1.51, "z": 2.67, "width": 1.6, "depth": 0.85 }, "sku_candidates": [{ "name": "Sea salt potato chips", "confidence": 0.64 }, { "name": "Roasted almonds", "confidence": 0.25 }, { "name": "Trail mix", "confidence": 0.11 }] },
-    { "id": "shelf-breakfast-04", "name": "Breakfast · Aisle 04", "category": "Breakfast", "map_zone": { "x": 0.89, "z": 1.4, "width": 1.7, "depth": 0.85 }, "sku_candidates": [{ "name": "Organic granola", "confidence": 0.71 }, { "name": "Oat cereal", "confidence": 0.21 }, { "name": "Honey muesli", "confidence": 0.08 }] },
-    { "id": "shelf-pantry-05", "name": "Pantry · Aisle 05", "category": "Pantry", "map_zone": { "x": 4.92, "z": 1.14, "width": 1.7, "depth": 0.85 }, "sku_candidates": [{ "name": "Tomato basil pasta sauce", "confidence": 0.69 }, { "name": "Classic marinara sauce", "confidence": 0.22 }, { "name": "Penne pasta", "confidence": 0.09 }] },
-    { "id": "shelf-produce-01", "name": "Fresh produce · Zone 01", "category": "Produce", "map_zone": { "x": -3.7, "z": 1.5, "width": 1.7, "depth": 0.85 }, "sku_candidates": [{ "name": "Organic bananas", "confidence": 0.58 }, { "name": "Avocado pack", "confidence": 0.27 }, { "name": "Mixed apples", "confidence": 0.15 }] },
-    { "id": "shelf-dairy-03", "name": "Dairy · Aisle 03", "category": "Dairy", "map_zone": { "x": 5.02, "z": 2.1, "width": 1.6, "depth": 0.85 }, "sku_candidates": [{ "name": "Greek yogurt", "confidence": 0.62 }, { "name": "Whole milk", "confidence": 0.24 }, { "name": "Cheddar cheese", "confidence": 0.14 }] }
+    {
+      "id": "shelf-beverages-02",
+      "name": "Beverages · Aisle 02",
+      "category": "Beverages",
+      "map_zone": {
+        "x": -1.5,
+        "z": -0.24,
+        "width": 1.8,
+        "depth": 0.85
+      },
+      "sku_candidates": [
+        {
+          "name": "Sparkling water 500 ml",
+          "confidence": 0.76
+        },
+        {
+          "name": "Orange soda 500 ml",
+          "confidence": 0.18
+        },
+        {
+          "name": "Still water 600 ml",
+          "confidence": 0.06
+        }
+      ]
+    },
+    {
+      "id": "shelf-snacks-01",
+      "name": "Snacks · Aisle 01",
+      "category": "Snacks",
+      "map_zone": {
+        "x": 1.51,
+        "z": 2.67,
+        "width": 1.6,
+        "depth": 0.85
+      },
+      "sku_candidates": [
+        {
+          "name": "Sea salt potato chips",
+          "confidence": 0.64
+        },
+        {
+          "name": "Roasted almonds",
+          "confidence": 0.25
+        },
+        {
+          "name": "Trail mix",
+          "confidence": 0.11
+        }
+      ]
+    },
+    {
+      "id": "shelf-breakfast-04",
+      "name": "Breakfast · Aisle 04",
+      "category": "Breakfast",
+      "map_zone": {
+        "x": 0.89,
+        "z": 1.4,
+        "width": 1.7,
+        "depth": 0.85
+      },
+      "sku_candidates": [
+        {
+          "name": "Organic granola",
+          "confidence": 0.71
+        },
+        {
+          "name": "Oat cereal",
+          "confidence": 0.21
+        },
+        {
+          "name": "Honey muesli",
+          "confidence": 0.08
+        }
+      ]
+    },
+    {
+      "id": "shelf-pantry-05",
+      "name": "Pantry · Aisle 05",
+      "category": "Pantry",
+      "map_zone": {
+        "x": 4.92,
+        "z": 1.14,
+        "width": 1.7,
+        "depth": 0.85
+      },
+      "sku_candidates": [
+        {
+          "name": "Tomato basil pasta sauce",
+          "confidence": 0.69
+        },
+        {
+          "name": "Classic marinara sauce",
+          "confidence": 0.22
+        },
+        {
+          "name": "Penne pasta",
+          "confidence": 0.09
+        }
+      ]
+    },
+    {
+      "id": "shelf-produce-01",
+      "name": "Fresh produce · Zone 01",
+      "category": "Produce",
+      "map_zone": {
+        "x": -3.7,
+        "z": 1.5,
+        "width": 1.7,
+        "depth": 0.85
+      },
+      "sku_candidates": [
+        {
+          "name": "Organic bananas",
+          "confidence": 0.58
+        },
+        {
+          "name": "Avocado pack",
+          "confidence": 0.27
+        },
+        {
+          "name": "Mixed apples",
+          "confidence": 0.15
+        }
+      ]
+    },
+    {
+      "id": "shelf-dairy-03",
+      "name": "Dairy · Aisle 03",
+      "category": "Dairy",
+      "map_zone": {
+        "x": 5.02,
+        "z": 2.1,
+        "width": 1.6,
+        "depth": 0.85
+      },
+      "sku_candidates": [
+        {
+          "name": "Greek yogurt",
+          "confidence": 0.62
+        },
+        {
+          "name": "Whole milk",
+          "confidence": 0.24
+        },
+        {
+          "name": "Cheddar cheese",
+          "confidence": 0.14
+        }
+      ]
+    }
   ],
-  "event_mappings": {
-    "shopper-01": ["shelf-beverages-02", "shelf-beverages-02"],
-    "shopper-02": ["shelf-snacks-01", "shelf-breakfast-04"],
-    "shopper-03": ["shelf-pantry-05", "shelf-dairy-03"],
-    "shopper-04": ["shelf-beverages-02"],
-    "shopper-05": [],
-    "shopper-06": ["shelf-snacks-01"],
-    "shopper-07": ["shelf-breakfast-04"],
-    "shopper-08": ["shelf-pantry-05"],
-    "shopper-09": ["shelf-dairy-03"],
-    "shopper-10": ["shelf-produce-01"],
-    "shopper-11": ["shelf-snacks-01"],
-    "shopper-12": []
+  "event_shelves": {
+    "[\"shopper-01\",\"event-2\"]": "shelf-beverages-02",
+    "[\"shopper-01\",\"event-1\"]": "shelf-beverages-02",
+    "[\"shopper-02\",\"event-2\"]": "shelf-snacks-01",
+    "[\"shopper-02\",\"event-1\"]": "shelf-breakfast-04",
+    "[\"shopper-03\",\"event-2\"]": "shelf-pantry-05",
+    "[\"shopper-03\",\"event-1\"]": "shelf-dairy-03",
+    "[\"shopper-04\",\"event-1\"]": "shelf-beverages-02",
+    "[\"shopper-06\",\"event-1\"]": "shelf-snacks-01",
+    "[\"shopper-07\",\"event-1\"]": "shelf-breakfast-04",
+    "[\"shopper-08\",\"event-1\"]": "shelf-pantry-05",
+    "[\"shopper-09\",\"event-1\"]": "shelf-dairy-03",
+    "[\"shopper-10\",\"event-1\"]": "shelf-produce-01",
+    "[\"shopper-11\",\"event-1\"]": "shelf-snacks-01"
   }
 }

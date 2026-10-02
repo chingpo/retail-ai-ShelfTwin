@@ -1,5 +1,6 @@
 # Node
 node_modules/
+.local/
 dist/
 
 # Environment
@@ -50,6 +51,13 @@ checkpoints/
 # Local documentation
 *.md
 *.MD
+!README.md
+!AGENT_ROADMAP_ZH.md
+!RESEARCH_NOTES_ZH.md
+!AGENT_SETUP_ZH.md
+!CASE_WORKFLOW_ZH.md
+!AGENT_PROGRESS_ZH.md
+!UI_LANGUAGE_ZH.md
 
 # Dataset assets and derived annotations (keep store-config.json)
 /public/data/RetailActionDemoAssets/

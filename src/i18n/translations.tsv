@@ -1,0 +1,396 @@
+Loading store…	正在加载门店…	店舗を読み込み中…
+SHOPPER 02	顾客 02	来店客 02
+SHOPPER 03	顾客 03	来店客 03
+PICK	拿取	手に取る
+PUT	放回	棚に戻す
+PUT BACK	放回	棚に戻す
+STOP	停留	滞在
+ENTRANCE	入口	入口
+Retail intelligence	零售洞察	小売インサイト
+WORKSPACE	工作空间	ワークスペース
+Store overview	门店总览	店舗概要
+Products	商品	商品
+Category insights	品类洞察	カテゴリー分析
+DEMO STORES	示例门店	デモ店舗
+Demo stores	示例门店	デモ店舗
+ACTIVE	当前	選択中
+DEMO WORKSPACE	演示工作空间	デモワークスペース
+Sample data · 3 store layouts	样本数据 · 3 个门店布局	サンプルデータ · 3 種類の店舗レイアウト
+PRODUCT & SPACE INTELLIGENCE	商品与空间洞察	商品・空間インサイト
+✦ Ask ShelfTwin	✦ 询问 ShelfTwin	✦ ShelfTwin に質問
+Today	今天	今日
+Demo dataset	演示数据集	デモデータセット
+DATA CONTEXT	数据说明	データの説明
+Video interactions are RetailAction evidence. Store locations and product links are configurable planogram associations in this prototype.	视频交互来自 RetailAction。原型中的门店位置和商品关联由可配置的货架布局映射提供。	動画の行動証拠は RetailAction に基づきます。店舗位置と商品リンクは、設定可能な棚割りによる対応付けです。
+PRODUCT LENS	商品视角	商品ビュー
+Start from a product, follow the evidence.	从商品出发，追踪证据。	商品から証拠をたどる。
+CATALOG → SHELF → INTERACTION → SHOPPER → VIDEO	目录 → 货架 → 交互 → 顾客 → 视频	カタログ → 棚 → 行動 → 来店客 → 動画
+PLANOGRAM CANDIDATE	货架布局候选商品	棚割り候補商品
+· candidate confidence	· 候选置信度	· 候補の信頼度
+shelf interactions	货架交互	棚での行動
+shopper tracks	顾客轨迹	来店客の軌跡
+picks	拿取	手に取る
+SHELF-ASSOCIATED VIDEO EVIDENCE	货架关联视频证据	棚に対応する動画証拠
+Open video →	打开视频 →	動画を開く →
+No interaction clip is curated for this shelf yet.	此货架尚未关联交互视频。	この棚には行動動画がまだ登録されていません。
+This product view uses a configurable planogram association. With a real catalog, barcode/OCR, inventory or POS signal, the same cards can be promoted from candidate to confirmed.	商品视图使用可配置的货架布局关联。接入真实目录、条码/OCR、库存或 POS 数据后，可将候选商品升级为已确认商品。	商品ビューは設定可能な棚割りに基づきます。実際のカタログ、バーコード/OCR、在庫、POS データで候補を確定できます。
+CURATED CROSS-SAMPLE AGGREGATE	策展样本汇总	選定サンプルの集計
+Product & shelf clusters	商品与货架分组	商品・棚のグループ
+NOT A SINGLE STORE SESSION	非单一门店会话	単一店舗のセッションではありません
+product candidates	候选商品	候補商品
+SELECTED CLUSTER	当前分组	選択中のグループ
+shoppers	顾客	来店客
+put backs	放回	棚に戻す
+DRILL DOWN TO EVIDENCE	查看具体证据	証拠の詳細を見る
+View video →	查看视频 →	動画を見る →
+Map-only cluster: add more clips mapped to this shelf to grow this cluster.	此分组仅有地图信息，可关联更多货架视频。	地図情報のみのグループです。この棚に動画を追加してください。
+Explore product cluster →	浏览商品分组 →	商品グループを見る →
+Counts aggregate the bundled RetailAction samples after configurable shelf mapping. They demonstrate the drill-down interaction; they are not transaction totals from a single physical store.	计数来自附带的 RetailAction 样本及可配置货架映射，用于演示证据追踪，不代表某个实体门店的交易总量。	件数は同梱の RetailAction サンプルを棚に対応付けた集計です。証拠追跡のデモであり、実店舗の取引総数ではありません。
+Select a local RetailAction video below	在下方选择本地 RetailAction 视频	下からローカルの RetailAction 動画を選択
+The spatial replay remains interactive using demo data.	空间回放仍可使用演示数据交互。	空間再生はデモデータで引き続き操作できます。
+VIDEO EVIDENCE ·	视频证据 ·	動画証拠 ·
+annotated interaction point	标注交互点	行動の注釈位置
+VIDEO	视频	動画
+EVENT JSON	事件 JSON	イベント JSON
+SPATIAL STORE MAP	门店空间地图	店舗の空間マップ
+● PICK / PUT	● 拿取 / 放回	● 手に取る / 戻す
+View PICK clip	查看拿取片段	手に取る動画を見る
+Journey position	轨迹位置	軌跡の位置
+s · shelf dwell	秒 · 货架停留	秒 · 棚での滞在
+Teal map markers are track-derived dwell stops. The gold PICK marker opens the separate prepared RetailAction clip.	青绿色标记是轨迹推导的停留点。金色拿取标记打开独立准备的 RetailAction 视频。	青緑のマーカーは軌跡から求めた滞在位置です。金色のマーカーで別途用意した RetailAction 動画を開きます。
+View evidence →	查看证据 →	証拠を見る →
+Video position	视频位置	動画の位置
+EVENT INSPECTOR	事件详情	イベント詳細
+VIDEO VERIFIED	视频已核验	動画確認済み
+PROTOTYPE MAP	原型地图	プロトタイプ地図
+SHELF	货架	棚
+PRODUCT CANDIDATES	候选商品	候補商品
+Load a store planogram to show candidate products.	加载门店货架布局以显示候选商品。	店舗の棚割りを読み込むと候補商品を表示します。
+View video evidence →	查看视频证据 →	動画証拠を見る →
+VIDEO EVIDENCE	视频证据	動画証拠
+MAP ASSOCIATION	地图关联	地図との対応
+PRODUCT SOURCE	商品来源	商品の情報源
+Production replacement path: same-store camera calibration → projected coordinates → real shelf polygons → planogram / inventory / POS-supported product association.	生产接入路径：同店摄像头标定 → 坐标投影 → 真实货架区域 → 货架布局 / 库存 / POS 支持的商品关联。	本番導入：店舗カメラの校正 → 座標投影 → 実際の棚領域 → 棚割り・在庫・POS に基づく商品対応。
+Expand navigation	展开导航	ナビゲーションを展開
+Collapse navigation	收起导航	ナビゲーションを折りたたむ
+DWELLING	停留中	滞在中
+BEFORE	交互前	行動前
+CONTACT	接触时	接触時
+AFTER	交互后	行動後
+REFERENCE INTERACTION CLIP · INDEPENDENT SAMPLE	参考交互片段 · 独立样本	参考行動動画 · 独立サンプル
+RETAILACTION · DUAL INTERACTION CLIP	RETAILACTION · 双交互片段	RETAILACTION · 2 つの行動動画
+SHOPPER JOURNEY	顾客轨迹	来店客の軌跡
+INTERACTION HISTORY	交互历史	行動履歴
+Activity at selected shelf	当前货架活动	選択した棚の活動
+Pause replay	暂停回放	再生を一時停止
+Play replay	开始回放	再生する
+Shelf mapping pending	等待货架映射	棚の対応付け待ち
+No planogram context yet	暂无货架布局信息	棚割り情報はまだありません
+RetailAction labeled interaction clip	RetailAction 标注交互视频	RetailAction の注釈付き行動動画
+Configured digital-twin demonstration map	配置的数字孪生演示地图	設定済みのデジタルツインのデモ地図
+Demo planogram candidates	演示货架布局候选商品	デモ棚割りの候補商品
+Invalid demo JSON	演示 JSON 格式无效	デモ JSON の形式が無効です
+Beverages	饮料	飲料
+Snacks	零食	スナック
+Produce	生鲜	青果
+Dairy	乳制品	乳製品
+Bakery	烘焙	ベーカリー
+Frozen	冷冻食品	冷凍食品
+▶ 产品导览	▶ Product tour	▶ 製品ガイド
+调查工作台	Investigation workspace	調査ワークスペース
+当前样本加载失败，未使用示例事件代替。	The current sample failed to load; no replacement events were used.	現在のサンプルを読み込めませんでした。代替イベントは使用していません。
+正在加载事件索引…	Loading event index…	イベント索引を読み込み中…
+从这里切换工作视图	Switch workspace views here	ここで表示を切り替え
+门店总览、商品和品类洞察分别展示空间活动、商品证据链和跨样本汇总。点击侧栏任一入口即可切换。	Use the sidebar to explore store activity, product evidence and category summaries.	サイドバーで店舗活動、商品証拠、カテゴリー集計を切り替えます。
+选择一个商品	Choose a product	商品を選択
+商品目录连接货架和互动记录。选中商品后，下面会展开候选信息、互动数量和相关视频证据。	Select a product to see its shelf, candidate details, interactions and video evidence.	商品を選ぶと棚、候補情報、行動件数、動画証拠を表示します。
+商品说明与证据	Product details and evidence	商品の詳細と証拠
+这里显示商品对应的货架、候选置信度和行为指标。点击任意视频证据，可以跳到对应顾客片段。	Review the shelf, candidate confidence and activity metrics. Open evidence to jump to the shopper clip.	棚、候補の信頼度、行動指標を確認できます。証拠を開くと来店客の動画へ移動します。
+查看真实互动片段	Review interaction clips	実際の行動動画を確認
+视频用于核对 PICK / PUT BACK 等行为。下方时间线和证据帧都可以点击，跳转到事件发生时刻。	Use video to verify picks and put-backs. Click the timeline or evidence frames to seek to an event.	動画で手に取る・棚に戻す行動を確認します。タイムラインや証拠画像からイベント時点へ移動できます。
+在数字地图里点选货架	Select shelves on the map	地図で棚を選択
+地图显示顾客轨迹、互动标记和货架区域。点击货架或事件标记，可以关联到视频和商品信息。	Click a shelf or event on the map to explore related video and products.	地図の棚やイベントをクリックすると、関連動画と商品を確認できます。
+按时间浏览行为	Browse activity over time	時系列で行動を見る
+活动时间线汇总当前样本的互动。选中一条事件会同步视频位置和地图上的位置。	Select an event to synchronize the video and map.	イベントを選ぶと動画と地図の位置が同期します。
+比较品类与货架	Compare categories and shelves	カテゴリーと棚を比較
+品类洞察按映射货架聚合多个样本，点击分类可继续查看商品或回到视频证据。	Category insights aggregate samples by shelf. Select a category to explore products and evidence.	カテゴリー分析は棚ごとにサンプルを集計します。カテゴリーから商品と証拠を確認できます。
+用自然语言查找线索	Find leads with natural language	自然言語で手がかりを探す
+ShelfTwin Agent 可以回答商品、放回行为和视频证据相关的问题，并提供可点击的结果入口。	Ask about products, put-backs and video evidence, then open the linked results.	商品、棚に戻す行動、動画証拠について質問し、リンク付きの結果を開けます。
+关闭产品导览	Close product tour	製品ガイドを閉じる
+产品导览 ·	Product tour ·	製品ガイド ·
+关闭	Close	閉じる
+暂停演示	Pause tour	ガイドを一時停止
+自动演示	Auto-play tour	ガイドを自動再生
+上一步	Previous	前へ
+完成	Done	完了
+下一步	Next	次へ
+调查完成	Investigation completed	調査完了
+关键证据不足	Key evidence missing	重要な証拠が不足
+达到预算	Budget reached	予算上限に到達
+已取消	Cancelled	キャンセル済み
+调查失败	Investigation failed	調査に失敗
+检索事件	Search events	イベント検索
+统计交互	Aggregate interactions	行動を集計
+获取货架信息	Get shelf context	棚情報を取得
+定位视频证据	Locate video evidence	動画証拠を特定
+提交调查报告	Submit report	調査報告を提出
+调查饮料区的放回行为，给我事实、证据和需要补充的信息	Investigate beverage put-backs; provide facts, evidence and missing information	飲料棚に戻す行動を調査し、事実、証拠、不足情報を示してください
+调查服务未启动。启动服务后可重新检查；离线查询仍可使用。	Investigation service is unavailable. Start it and retry; offline queries remain available.	調査サービスに接続できません。起動して再確認してください。オフライン検索は利用できます。
+调查服务未连接或未配置。	Investigation service is disconnected or unconfigured.	調査サービスが未接続、または未設定です。
+调查请求失败。	Investigation request failed.	調査リクエストに失敗しました。
+调查返回格式无效。	Invalid investigation response.	調査の応答形式が無効です。
+调查已取消。	Investigation cancelled.	調査をキャンセルしました。
+ShelfTwin 调查助手	ShelfTwin investigation assistant	ShelfTwin 調査アシスタント
+标注查询 → 证据定位 → 调查报告	Query annotations → Locate evidence → Report	注釈を検索 → 証拠を特定 → 調査報告
+关闭调查	Close investigation	調査を閉じる
+模型调查	Model investigation	モデルによる調査
+开发调查	Local investigation	ローカル調査
+离线查询	Offline query	オフライン検索
+正在连接调查服务…	Connecting to investigation service…	調査サービスに接続中…
+模型尚未配置，请设置服务端密钥和模型。	Configure the server API key and model first.	サーバーの API キーとモデルを設定してください。
+本地固定流程已就绪，不调用模型。	Local workflow ready. No model calls.	ローカル処理を利用できます。モデル呼び出しはありません。
+模型调查服务已就绪。	Model investigation service ready.	モデル調査サービスを利用できます。
+重新检查	Check again	再確認
+描述希望调查的问题…	Describe your investigation…	調査したい内容を入力…
+开始调查	Start investigation	調査を開始
+查询	Search	検索
+调查饮料区放回行为，列出证据与待验证假设	Investigate beverage put-backs; list evidence and hypotheses	飲料棚に戻す行動を調査し、証拠と仮説を列挙してください
+比较饮料与零食货架的交互，并定位代表性证据	Compare beverage and snack interactions and locate representative evidence	飲料とスナックの棚の行動を比較し、代表的な証拠を特定してください
+这些数据能否判断某个商品销量下降的原因？	Can these data explain why a product's sales fell?	このデータで商品の売上低下の原因を判断できますか？
+正在执行本地固定调查流程…	Running local investigation workflow…	ローカル調査を実行中…
+正在收集证据并整理报告，最多约两分钟…	Collecting evidence and preparing a report; up to about two minutes…	証拠の収集と報告の作成中です。最大約 2 分かかります…
+取消调查	Cancel investigation	調査をキャンセル
+离线规则查询	Offline rule-based query	オフラインのルール検索
+事实与证据	Facts and evidence	事実と証拠
+尚未形成可引用的事实结论。	No citable findings yet.	引用可能な事実はまだありません。
+待验证假设	Hypotheses to verify	検証が必要な仮説
+需要补充：	Missing evidence: 	不足している証拠：
+支持证据	Supporting evidence	支持する証拠
+尚无支持证据。	No supporting evidence yet.	支持する証拠はまだありません。
+反向证据	Counterevidence	反証
+尚未找到反向证据，不代表假设成立。	No counterevidence found; this does not establish the hypothesis.	反証は見つかっていませんが、仮説の成立を意味しません。
+限制	Limitations	制約
+已定位的证据	Located evidence	特定した証拠
+调查记录（	Investigation log (	調査ログ（
+步）	steps)	ステップ）
+成功	Success	成功
+失败	Failed	失敗
+次工具调用 ·	tool calls ·	回のツール呼び出し ·
+本地执行，无模型请求	Local execution; no model requests	ローカル実行・モデルへのリクエストなし
+秒	seconds	秒
+离线查询使用本地事件数据，无模型调用。	Offline queries use local events without model calls.	オフライン検索はローカルのイベントを使用します。モデル呼び出しはありません。
+模型读取策展样本的结构化标注，尚未观看视频。每次调查独立，不保存长期 Case。	The model reads structured sample annotations, not video. Each investigation is independent and does not save a long-term case.	モデルはサンプルの構造化注釈を読みます。動画は視聴しません。各調査は独立しており、長期ケースを保存しません。
+开发模式固定调查步骤和报告模板，计数与引用读取真实本地数据，不请求外部模型。仅支持预设问题类型。	Local mode uses fixed steps and report templates with real local counts and references. No external model; preset question types only.	ローカルモードは固定手順と報告テンプレートを使用し、件数と参照は実際のローカルデータから取得します。外部モデルは使用せず、既定の質問形式に対応します。
+调查中	Investigating	調査中
+等待证据	Waiting for evidence	証拠待ち
+待负责人决策	Awaiting owner decision	担当者の判断待ち
+观察干预	Observing intervention	施策の観察中
+已结束	Closed	終了
+可推进	Ready	実行可能
+等待	Waiting	待機
+需决策	Decision needed	判断が必要
+停止	Stopped	停止
+放回比例下降	Put-back ratio decreased	棚に戻す割合が低下
+放回比例上升	Put-back ratio increased	棚に戻す割合が上昇
+无明显变化	No clear change	明確な変化なし
+证据不足	Insufficient evidence	証拠不足
+暂无数据	No data	データなし
+饮料区放回调查	Beverage put-back investigation	飲料棚に戻す行動の調査
+调查饮料区的放回行为，列出证据和需要补充的信息	Investigate beverage put-backs; list evidence and missing information	飲料棚に戻す行動を調査し、証拠と不足情報を示してください
+门店负责人	Store manager	店舗責任者
+已检查现有证据，继续补充调查。	Reviewed available evidence; continue investigating.	既存の証拠を確認しました。調査を継続します。
+调整饮料区价签（模拟演练）	Adjust beverage price labels (simulation)	飲料の値札を調整（シミュレーション）
+模拟观察批次；非真实经营结果。	Simulated observation batch; not actual business results.	シミュレーションの観察データです。実際の営業結果ではありません。
+工作台服务未连接，请运行 npm run dev:agent。	Workspace service unavailable. Run npm run dev:agent.	ワークスペースに接続できません。npm run dev:agent を実行してください。
+请求失败。	Request failed.	リクエストに失敗しました。
+操作失败。	Operation failed.	操作に失敗しました。
+保存 Case → 现场反馈 → 干预复查 → 队列调度 · 本地固定流程，无模型调用	Save case → On-site feedback → Review intervention → Schedule queue · Local workflow, no model calls	ケースを保存 → 現場の報告 → 施策を評価 → キューの実行 · ローカル処理、モデル呼び出しなし
+关闭工作台	Close workspace	ワークスペースを閉じる
+创建调查	Create investigation	調査を作成
+标题	Title	タイトル
+目标	Objective	目的
+负责人	Owner	担当者
+创建 Case	Create case	ケースを作成
+调查队列	Investigation queue	調査キュー
+优先分数 = 影响 × 可靠性 × 可行动性 ÷ 成本。等待和已结束项不会被自动推进。	Priority = impact × reliability × actionability ÷ cost. Waiting and closed cases are not advanced automatically.	優先度 = 影響 × 信頼性 × 実行可能性 ÷ コスト。待機・終了ケースは自動で進めません。
+没有可推进的调查，请处理反馈、决策或预算。	No eligible investigation. Review feedback, decisions or budgets.	実行可能な調査がありません。報告、判断、予算を確認してください。
+推进最高优先级的一项	Advance the highest-priority case	優先度が最も高いケースを進める
+刷新	Refresh	更新
+尚无调查，创建后即可保存并继续跟进。	No investigations yet. Create a case to save and follow up.	調査はまだありません。ケースを作成して保存・追跡できます。
+· 预算	· Budget	· 予算
+次 · 更新	 runs · Updated	回 · 更新
+已保存的事实与证据	Saved facts and evidence	保存済みの事実と証拠
+执行本地调查	Run local investigation	ローカル調査を実行
+待办与现场反馈	Tasks and on-site feedback	タスクと現場の報告
+已完成	Completed	完了
+等待反馈	Awaiting feedback	報告待ち
+· 人工判断：	· Human assessment: 	· 担当者の判断：
+支持假设	Supports hypothesis	仮説を支持
+反驳假设	Refutes hypothesis	仮説を反証
+暂不能判断	Undetermined	判断できません
+现场反馈	On-site feedback	現場の報告
+填写现场检查结果	Enter on-site inspection results	現場での確認結果を入力
+假设判断	Hypothesis assessment	仮説の判断
+暂不能判断假设	Hypothesis undetermined	仮説を判断できません
+人工判断：支持假设	Human assessment: supports hypothesis	担当者の判断：仮説を支持
+人工判断：反驳假设	Human assessment: refutes hypothesis	担当者の判断：仮説を反証
+保存反馈	Save feedback	報告を保存
+新待办	New task	新しいタスク
+新增补证据待办	Add an evidence collection task	証拠収集タスクを追加
+登记待办	Add task	タスクを登録
+假设：	Hypothesis: 	仮説：
+已被人工反馈反驳	Refuted by human feedback	担当者の報告により反証
+人工反馈支持，尚非因果结论	Supported by human feedback; causality not established	担当者の報告が支持していますが、因果関係は未確定
+待验证	Unverified	未検証
+登记干预和评估计划	Register intervention and evaluation plan	施策と評価計画を登録
+保存后锁定窗口、阈值与基线。指标是放回事件 / 交互事件，不能解释为商品退回率或销售转化。	Saving locks the window, threshold and baseline. The metric is put-back events / interactions, not returns or sales conversion.	保存後は期間、閾値、基準値を固定します。指標は棚に戻すイベント / 行動件数であり、返品率や購買転換率ではありません。
+措施	Intervention	施策
+数据来源	Data source	データの出典
+模拟演练	Simulation	シミュレーション
+人工录入，未经独立验证	Manual entry, not independently verified	手動入力・第三者の検証なし
+观察天数	Observation days	観察日数
+最小样本数	Minimum samples	最小サンプル数
+变化阈值（百分点）	Change threshold (percentage points)	変化の閾値（パーセントポイント）
+基线交互数	Baseline interactions	基準の行動件数
+基线放回数	Baseline put-backs	基準の棚に戻す件数
+保存并开始观察	Save and start observing	保存して観察を開始
+干预复查 ·	Intervention review ·	施策の評価 ·
+包含模拟数据	Includes simulated data	シミュレーションデータを含む
+人工录入数据	Manually entered data	手動入力データ
+窗口：	Window: 	期間：
+· 最少	· Minimum	· 最低
+样本 · 阈值	 samples · Threshold	サンプル · 閾値
+个百分点	percentage points	パーセントポイント
+基线：	Baseline: 	基準値：
+次交互 /	interactions /	件の行動 /
+次放回	put-backs	件の棚に戻す行動
+录入独立、互不重叠的观察批次	Enter independent, non-overlapping observation batches	独立した重複のない観察データを入力
+来源	Source	出典
+模拟窗口结束后的数据	Simulated data after the observation window	観察期間終了後のシミュレーションデータ
+批次观察时间（UTC）	Batch observation time (UTC)	観察日時（UTC）
+观察交互数	Observed interactions	観察した行動件数
+观察放回数	Observed put-backs	観察した棚に戻す件数
+批次说明	Batch notes	観察データの説明
+保存观察批次	Save observation batch	観察データを保存
+按锁定计划复查	Evaluate against locked plan	固定した計画で評価
+模拟	Simulated	シミュレーション
+人工录入	Manual entry	手動入力
+次放回 ·	put-backs ·	件の棚に戻す行動 ·
+负责人决策	Owner decision	担当者の判断
+继续 / 结束原因	Reason to continue / close	継続・終了の理由
+继续调查	Continue investigation	調査を継続
+结束 Case	Close case	ケースを終了
+队列优先级与预算	Queue priority and budget	キューの優先度と予算
+影响	Impact	影響
+证据可靠性	Evidence reliability	証拠の信頼性
+可行动性	Actionability	実行可能性
+调查成本	Investigation cost	調査コスト
+总调查次数	Total investigation runs	調査回数の上限
+保存调度参数	Save scheduling settings	実行設定を保存
+历次报告与证据（	Previous reports and evidence (	過去の報告と証拠（
+次）	 runs)	回）
+第	Run	第
+次调查	 investigation	回の調査
+完整历史（	Full history (	全履歴（
+条）	 entries)	件）
+选择或创建一个 Case。关闭窗口或重启服务后，调查、待办和评估计划仍会保留。	Select or create a case. Investigations, tasks and plans persist after closing the window or restarting the service.	ケースを選択または作成してください。ウィンドウを閉じても、サービスを再起動しても、調査、タスク、計画は保持されます。
+界面语言	Interface language	表示言語
+服务端数据未完整加载：	Server data partially loaded: 	サーバーデータの読み込みが不完全：
+数据未完整加载：	Data partially loaded: 	データの読み込みが不完全：
+当前统计仅含成功加载的数据，问答排名暂不可用。	Counts only include loaded data; query rankings are unavailable.	集計には読み込み済みのデータのみ含まれ、質問の順位付けは利用できません。
+次模型请求	model requests	回のモデルリクエスト
+输入	Input	入力
+输出	Output	出力
+Breakfast	早餐食品	朝食
+Pantry	粮油调味	保存食品
+Beverages · Aisle 02	饮料 · 02 通道	飲料 · 通路 02
+Snacks · Aisle 01	零食 · 01 通道	スナック · 通路 01
+Breakfast · Aisle 04	早餐食品 · 04 通道	朝食 · 通路 04
+Pantry · Aisle 05	粮油调味 · 05 通道	保存食品 · 通路 05
+Fresh produce · Zone 01	生鲜 · 01 区	青果 · エリア 01
+Dairy · Aisle 03	乳制品 · 03 通道	乳製品 · 通路 03
+Sparkling water 500 ml	气泡水 500 ml	炭酸水 500 ml
+Orange soda 500 ml	橙味汽水 500 ml	オレンジソーダ 500 ml
+Still water 600 ml	饮用水 600 ml	飲料水 600 ml
+Sea salt potato chips	海盐薯片	海塩ポテトチップス
+Roasted almonds	烤杏仁	ローストアーモンド
+Trail mix	混合坚果	ミックスナッツ
+Organic granola	有机格兰诺拉麦片	有機グラノーラ
+Oat cereal	燕麦谷物	オートシリアル
+Honey muesli	蜂蜜麦片	ハニーミューズリー
+Tomato basil pasta sauce	番茄罗勒意面酱	トマトバジルパスタソース
+Classic marinara sauce	经典番茄酱	マリナーラソース
+Penne pasta	通心粉	ペンネ
+Organic bananas	有机香蕉	有機バナナ
+Avocado pack	牛油果组合装	アボカドパック
+Mixed apples	混合苹果	ミックスりんご
+Greek yogurt	希腊酸奶	ギリシャヨーグルト
+Whole milk	全脂牛奶	全乳
+Cheddar cheese	切达奶酪	チェダーチーズ
+调查内容保留原文	Investigation content is shown in its original language	調査内容は元の言語で表示します
+Shelf interaction	货架交互	棚での行動
+Annotated shelf	标注货架	注釈付きの棚
+Sparkling water	气泡水	炭酸水
+Pasta sauce	意面酱	パスタソース
+SHOPPER 01	顾客 01	来店客 01
+SHOPPER 04	顾客 04	来店客 04
+SHOPPER 05	顾客 05	来店客 05
+SHOPPER 06	顾客 06	来店客 06
+SHOPPER 07	顾客 07	来店客 07
+SHOPPER 08	顾客 08	来店客 08
+SHOPPER 09	顾客 09	来店客 09
+SHOPPER 10	顾客 10	来店客 10
+SHOPPER 11	顾客 11	来店客 11
+SHOPPER 12	顾客 12	来店客 12
+场景演示	Scenario demo	シナリオデモ
+从一个门店问题开始	Start with a store question	店舗の課題から始める
+选择场景，预览调查路径，也可以修改后创建自己的 Case。	Explore a scenario, preview the investigation path, then customize your case.	シナリオを選んで調査手順を確認し、編集してケースを作成できます。
+顾客行为	Shopper behavior	来店客の行動
+库存与补货	Stock and replenishment	在庫と補充
+价格与信息	Pricing and information	価格と情報
+陈列与空间	Displays and space	陳列と空間
+购物决策	Shopping decisions	購買判断
+门店体验	Store experience	店舗体験
+热门商品疑似缺货	Potential stockout of popular products	人気商品の欠品の可能性
+价签与促销信息异常	Price label and promotion discrepancies	値札と販促情報の不一致
+货架摆放与可见性优化	Shelf placement and visibility	棚の配置と視認性の改善
+长时间停留但未拿取	Long dwell without picking	長い滞在でも商品を取らない
+通道拥堵与动线调查	Aisle congestion and shopper flow	通路の混雑と動線の調査
+顾客拿起饮料后又放回，值得进一步核对。	A shopper picks up a beverage, then puts it back; review the context.	来店客が飲料を手に取って棚に戻しています。状況の確認が必要です。
+回看拿取与放回片段，现场核对价签与促销信息。	Review pick and put-back clips; check price labels and promotions on site.	行動動画を確認し、現場で値札と販促情報を照合します。
+放回事件比例 · 7 天观察	Put-back event ratio · 7-day observation	棚に戻すイベントの割合 · 7 日間観察
+调查零食区是否存在疑似缺货，整理线索并列出需要核对的库存信息。	Investigate potential snack stockouts; summarize leads and inventory checks.	スナック棚の欠品の可能性を調査し、手がかりと確認すべき在庫情報を整理してください。
+顾客在目标货架停留，却没有拿取商品。	A shopper stops at the target shelf without picking a product.	来店客が対象の棚に滞在しましたが、商品を取りませんでした。
+检查货架空位、库存与补货记录，确认商品是否可购买。	Check empty shelf spaces, inventory and replenishment records for availability.	棚の空き、在庫、補充記録から商品の購入可否を確認します。
+补齐零食区陈列与库存（模拟演练）	Replenish snack displays and stock (simulation)	スナックの陳列と在庫を補充（シミュレーション）
+货架可用率 · 补货后复查	Shelf availability · Review after restocking	棚の商品充足率 · 補充後に再確認
+调查饮料区价签或促销说明是否可能引起顾客犹豫，列出核验步骤。	Investigate whether beverage price labels or promotions may cause hesitation; outline checks.	飲料の値札や販促説明が迷いにつながる可能性を調査し、確認手順を示してください。
+顾客反复查看商品和价签后离开。	A shopper repeatedly checks products and price labels before leaving.	来店客が商品と値札を繰り返し確認してから離れています。
+对照价签、收银价格与促销规则，记录不一致之处。	Compare shelf labels, checkout prices and promotion rules; record discrepancies.	値札、レジ価格、販促ルールを照合し、不一致を記録します。
+统一价签与促销说明（模拟演练）	Align price labels and promotion details (simulation)	値札と販促説明を統一（シミュレーション）
+价签一致率 · 3 天复查	Price label consistency · 3-day review	値札の一致率 · 3 日後に確認
+比较零食货架不同陈列位置的交互，设计商品可见性优化的验证计划。	Compare interactions across snack display positions; design a visibility evaluation plan.	スナック棚の陳列位置ごとの行動を比較し、視認性改善の検証計画を設計してください。
+相邻陈列位置的顾客互动表现可能不同。	Adjacent display positions may show different shopper interactions.	隣接する陳列位置でも、来店客の行動に差がある可能性があります。
+核对陈列照片、货架高度与位置，比较同时间段的样本。	Check display photos, shelf height and placement; compare matched time periods.	陳列写真、棚の高さと位置を確認し、同じ時間帯のサンプルを比較します。
+优化零食区陈列位置（模拟演练）	Optimize snack display placement (simulation)	スナックの陳列位置を改善（シミュレーション）
+拿取事件比例 · 7 天对照	Pick event ratio · 7-day comparison	手に取るイベントの割合 · 7 日間比較
+调查早餐食品区长时间停留却未拿取的行为，列出可能解释与待补证据。	Investigate long dwell without picking at breakfast shelves; list explanations and missing evidence.	朝食の棚で長く滞在しても商品を取らない行動を調査し、説明と不足する証拠を示してください。
+顾客在早餐货架前停留，最终没有拿取。	A shopper dwells at the breakfast shelf but leaves without picking.	来店客が朝食の棚に滞在しましたが、商品を取らずに離れています。
+核对停留轨迹、商品选择与包装信息，补充现场观察。	Review dwell tracks, product choices and packaging; add on-site observations.	滞在軌跡、商品の選択肢、包装情報を確認し、現場の観察を追加します。
+简化早餐区商品指引（模拟演练）	Simplify breakfast product guidance (simulation)	朝食商品の案内を簡潔にする（シミュレーション）
+停留后拿取比例 · 7 天观察	Pick-after-dwell ratio · 7-day observation	滞在後に手に取る割合 · 7 日間観察
+调查生鲜区通道是否存在拥堵或绕行，列出空间布局核验与改善建议。	Investigate produce aisle congestion or detours; outline layout checks and improvements.	青果の通路の混雑や迂回を調査し、配置の確認と改善案を示してください。
+多个顾客在通道交汇处停留或绕行。	Several shoppers stop or detour at an aisle intersection.	複数の来店客が通路の交差点で止まったり迂回したりしています。
+检查通道宽度、临时堆头与高峰时段的通行情况。	Check aisle width, temporary displays and peak-hour movement.	通路幅、臨時の陳列、混雑時間帯の通行状況を確認します。
+调整生鲜区通道与临时堆头（模拟演练）	Adjust produce aisles and temporary displays (simulation)	青果の通路と臨時陳列を調整（シミュレーション）
+通行时间 · 高峰时段对比	Travel time · Peak-hour comparison	通行時間 · 混雑時間帯の比較
+查看调查路径	View investigation path	調査手順を見る
+演示预览 · 未执行调查	Demo preview · Investigation not run	デモプレビュー · 調査未実行
+使用此模板	Use this template	このテンプレートを使用
+发现线索	Identify a lead	手がかりを発見
+补充证据	Collect evidence	証拠を収集
+尝试干预	Try an intervention	施策を試す
+持续复查	Follow up	継続して評価
+以上为场景脚本，不代表当前数据已发现异常。模板只填入表单，具体指标与调查能力待后续实现。	Scenario scripts do not indicate anomalies in current data. Templates only populate the form; scenario-specific metrics and investigations are planned.	これはシナリオ例であり、現在のデータで異常を検出した結果ではありません。フォームに入力するだけで、専用の指標と調査機能は今後実装します。
+模板已填入，可修改后创建。	Template filled in. Edit it before creating your case.	テンプレートを入力しました。編集してケースを作成できます。
+浏览场景模板	Browse scenario templates	シナリオテンプレートを見る

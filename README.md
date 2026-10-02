@@ -54,3 +54,9 @@ The project includes the CC0 **Saturday Shop (Pixel Modern Supermarket)** scene 
 ## Curating RetailAction clips
 
 Choose a few legible clips only; this project does not run a Kaggle submission or official benchmark evaluation. Put a selected MP4 at `public/media/retail-camera.mp4`, and replace `public/data/demo.json` with a local export. `cv/export_demo.py` is a dependency-free bridge from tracker feet-point data into the UI JSON; it deliberately starts with a simple normalized mapping. Upgrade that mapping to a per-camera homography after selecting four floor reference points.
+
+## Agent investigation
+
+Run `npm run dev:agent` (Node 22.18+ or 24+) for the default local investigation workflow. No API key or paid calls are needed: tools read real bundled data and reports use fixed rules/templates. OpenAI is optional and only enabled with explicit `AGENT_PROVIDER=openai` plus server credentials. Setup: [中文运行说明](AGENT_SETUP_ZH.md).
+
+The **调查工作台** button opens persistent local cases, feedback tasks, intervention review and a priority queue. State is stored at `.local/agent-cases.json`. This workspace always uses local rules, with no model API requests. [中文阶段 2–4 说明](CASE_WORKFLOW_ZH.md).

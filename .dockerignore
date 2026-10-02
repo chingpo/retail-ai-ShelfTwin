@@ -1,5 +1,9 @@
 node_modules
+.local
 dist
 .git
 .DS_Store
 *.tsbuildinfo
+.env
+.env.*
+!.env.example
