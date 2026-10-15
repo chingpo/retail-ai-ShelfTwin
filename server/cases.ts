@@ -4,8 +4,14 @@ import { createHash, randomUUID } from 'node:crypto'
 import { investigateLocally } from './mock-investigation.ts'
 import type { QueryContext } from '../src/domain/types.ts'
 import type { CaseAction, InvestigationCase, MetricSample, QueueItem } from '../src/assistant/case-types.ts'
+import type { InvestigationResult } from '../src/assistant/investigation-types.ts'
+import type { InvestigationLocale } from '../src/assistant/investigation-types.ts'
 
 export class CaseError extends Error { status: number; constructor(message: string, status = 400) { super(message); this.status = status } }
+export interface CasePersistence {
+  read(): Promise<InvestigationCase[]>
+  mutate<T>(operation: (cases: InvestigationCase[]) => Promise<T>): Promise<T>
+}
 const nonempty = (value: unknown, max = 2000) => {
   if (typeof value !== 'string' || !value.trim() || value.length > max) throw new CaseError('文本不能为空或过长。')
   return value.trim()
@@ -14,6 +20,7 @@ const number = (value: unknown, min: number, max: number, integer = true) => {
   if (typeof value !== 'number' || !Number.isFinite(value) || value < min || value > max || (integer && !Number.isInteger(value))) throw new CaseError('数值超出范围。')
   return value
 }
+const caseCopy = (locale: InvestigationLocale | undefined, zh: string, ja: string, en: string, ko: string) => ({ zh, ja, en, ko })[locale ?? 'zh']
 function sample(value: MetricSample): MetricSample {
   if (!value || !['simulated', 'manual'].includes(value.source)) throw new CaseError('需标明模拟或人工录入数据。')
   return { interactions: number(value.interactions, 1, 1_000_000), puts: number(value.puts, 0, value.interactions), source: value.source }
@@ -43,10 +50,16 @@ export class CaseStore {
   private path: string
   private getContext: () => Promise<QueryContext>
   private clock: () => Date
-  constructor(path: string, getContext: () => Promise<QueryContext>, clock = () => new Date()) {
-    this.path = path; this.getContext = getContext; this.clock = clock
+  private persistence?: CasePersistence
+  private runModelInvestigation?: (question: string, context: QueryContext, locale: InvestigationLocale) => Promise<InvestigationResult>
+  private modelBusy = false
+  constructor(path: string, getContext: () => Promise<QueryContext>, clock = () => new Date(), persistence?: CasePersistence,
+    runModelInvestigation?: (question: string, context: QueryContext, locale: InvestigationLocale) => Promise<InvestigationResult>) {
+    this.path = path; this.getContext = getContext; this.clock = clock; this.runModelInvestigation = runModelInvestigation
+    this.persistence = persistence
   }
   private async read(): Promise<InvestigationCase[]> {
+    if (this.persistence) return this.persistence.read()
     try {
       const data = JSON.parse(await readFile(this.path, 'utf8'))
       if (data.version !== 1 || !Array.isArray(data.cases) || !data.cases.every((c: InvestigationCase) => typeof c.id === 'string' && Number.isInteger(c.revision) && Array.isArray(c.history) && Array.isArray(c.processedCommands))) throw new Error('Invalid case store')
@@ -58,6 +71,7 @@ export class CaseStore {
   }
   private mutate<T>(operation: (cases: InvestigationCase[]) => Promise<T>): Promise<T> {
     const result = this.tail.then(async () => {
+      if (this.persistence) return this.persistence.mutate(operation)
       const cases = await this.read()
       const value = await operation(cases)
       await mkdir(dirname(this.path), { recursive: true })
@@ -71,15 +85,18 @@ export class CaseStore {
   }
   async list() { await this.tail; return this.read() }
   async get(id: string) { const item = (await this.list()).find(c => c.id === id); if (!item) throw new CaseError('调查不存在。', 404); return item }
-  async create(input: { title: string; question: string; owner: string; requestId: string }) {
+  async create(input: { title: string; question: string; owner: string; requestId: string; locale?: InvestigationLocale }) {
     return this.mutate(async cases => {
       const requestId = nonempty(input.requestId, 100)
       const existing = cases.find(c => c.processedCommands.includes(requestId))
       if (existing) return existing
       const now = this.clock().toISOString()
-      const item: InvestigationCase = { id: randomUUID(), title: nonempty(input.title, 120), question: nonempty(input.question), owner: nonempty(input.owner, 80),
+      const locale: InvestigationLocale = ['zh', 'ja', 'en', 'ko'].includes(input.locale ?? '') ? input.locale! : 'zh'
+      const item: InvestigationCase = { id: randomUUID(), title: nonempty(input.title, 120), question: nonempty(input.question), owner: nonempty(input.owner, 80), locale,
         status: 'investigating', createdAt: now, updatedAt: now, revision: 1, impact: 3, reliability: 3, actionability: 3, cost: 2,
-        maxRuns: 3, runsUsed: 0, tasks: [], hypotheses: [], reports: [], history: [{ at: now, action: 'create', detail: '创建调查；固定流程，不调用模型。' }], processedCommands: [requestId] }
+        maxRuns: 3, runsUsed: 0, tasks: [], hypotheses: [], reports: [], history: [{ at: now, action: 'create', detail: this.runModelInvestigation
+          ? caseCopy(locale, '创建持续跟进 Case，首次调查将调用 AI。', '継続調査 Case を作成しました。初回調査では AI を実行します。', 'Follow-up case created; the initial investigation will use AI.', '후속 조사 Case를 만들었습니다. 초기 조사에서 AI를 실행합니다.')
+          : caseCopy(locale, '创建调查；固定流程，不调用模型。', '調査を作成しました。固定ルールを使用し、モデルは呼び出しません。', 'Investigation created; fixed workflow, no model call.', '조사를 만들었습니다. 고정 워크플로를 사용하며 모델을 호출하지 않습니다.') }], processedCommands: [requestId] }
       cases.push(item); return item
     })
   }
@@ -93,17 +110,17 @@ export class CaseStore {
         if (item.runsUsed >= item.maxRuns) throw new CaseError('调查预算已用完。', 409)
         const context = await this.getContext()
         if (context.status !== 'ready') throw new CaseError('事件数据未完整加载，调查未执行且不消耗预算。', 503)
-        const fingerprint = createHash('sha256').update(JSON.stringify({ question: item.question, events: context.events, shelves: context.shelves,
+        const fingerprint = createHash('sha256').update(JSON.stringify({ question: item.question, locale: item.locale ?? 'zh', events: context.events, shelves: context.shelves,
           feedback: item.tasks.filter(t => t.status === 'done').map(t => ({ id: t.id, feedback: t.feedback, outcome: t.outcome })) })).digest('hex')
         if (item.lastFingerprint === fingerprint) { item.status = 'awaiting_decision'; detail = '没有新证据，复用已保存报告；未重复消耗调查预算。'; break }
-        item.report = investigateLocally(context, item.question)
+        item.report = investigateLocally(context, item.question, undefined, item.locale ?? 'zh')
         item.reports ??= []
         item.reports.push(item.report)
         item.lastFingerprint = fingerprint; item.runsUsed++
         if (!item.tasks.length) {
           const taskId = randomUUID()
-          item.tasks.push({ id: taskId, title: '现场检查货架和价签，并人工核对代表性视频', status: 'open' })
-          item.hypotheses.push({ explanation: '货架或价签可能影响交互行为，需现场检查，尚无因果证据。', status: 'unverified', taskId })
+          item.tasks.push({ id: taskId, title: caseCopy(item.locale, '现场检查货架和价签，并人工核对代表性视频', '売場と値札を現場で確認し、代表的な動画を人が照合する', 'Inspect the shelf and price label, then manually review representative clips', '매대와 가격표를 현장에서 확인하고 대표 영상을 직접 검토하기'), status: 'open' })
+          item.hypotheses.push({ explanation: caseCopy(item.locale, '货架或价签可能影响交互行为，需现场检查，尚无因果证据。', '棚や値札が行動に影響している可能性があります。現場確認が必要で、因果関係を示す証拠はまだありません。', 'The shelf or price label may influence interactions. Verify on site; no causal evidence is available yet.', '매대나 가격표가 상호작용에 영향을 줄 가능성이 있습니다. 현장 확인이 필요하며 아직 인과 증거는 없습니다.'), status: 'unverified', taskId })
         }
         item.status = item.tasks.some(t => t.status === 'open') ? 'waiting_evidence' : 'awaiting_decision'
         detail = `保存第 ${item.runsUsed} 次调查和证据；${item.report.stopReason}`; break
@@ -166,7 +183,8 @@ export class CaseStore {
     }
     item.revision++; item.updatedAt = this.clock().toISOString(); item.history.push({ at: item.updatedAt, action: action.type, detail })
   }
-  async command(id: string, revision: number, requestId: string, action: CaseAction) {
+  async command(id: string, revision: number, requestId: string, action: CaseAction, requestedLocale?: InvestigationLocale) {
+    if (action?.type === 'investigate' && this.runModelInvestigation) return this.investigateWithModel(id, revision, requestId, requestedLocale)
     return this.mutate(async cases => {
       const item = cases.find(c => c.id === id); if (!item) throw new CaseError('调查不存在。', 404)
       const key = nonempty(requestId, 100)
@@ -175,7 +193,88 @@ export class CaseStore {
       await this.apply(item, action); item.processedCommands.push(key); return item
     })
   }
+  private async investigateWithModel(id: string, revision: number, requestId: string, requestedLocale?: InvestigationLocale): Promise<InvestigationCase> {
+    let runId = ''
+    const prepared = await this.mutate(async cases => {
+      const item = cases.find(c => c.id === id); if (!item) throw new CaseError('调查不存在。', 404)
+      if (!item.locale && requestedLocale && ['zh', 'ja', 'en', 'ko'].includes(requestedLocale)) item.locale = requestedLocale
+      const key = nonempty(requestId, 100)
+      if (item.processedCommands.includes(key)) return { item, run: false }
+      if (revision !== item.revision) throw new CaseError('调查已更新，请刷新后重试。', 409)
+      if (item.pendingInvestigation) {
+        if (this.clock().getTime() - Date.parse(item.pendingInvestigation.startedAt) < 180_000) throw new CaseError('此 Case 的 AI 调查仍在运行，请稍后刷新。', 409)
+        item.pendingInvestigation = undefined
+      }
+      if (item.status !== 'investigating') throw new CaseError('当前状态不允许调查，请先处理待办或明确继续调查。', 409)
+      if (item.runsUsed >= item.maxRuns) throw new CaseError('调查预算已用完。', 409)
+      const context = await this.getContext()
+      if (context.status !== 'ready') throw new CaseError('事件数据未完整加载，调查未执行且不消耗预算。', 503)
+      const fingerprint = createHash('sha256').update(JSON.stringify({ question: item.question, locale: item.locale ?? 'zh', events: context.events, shelves: context.shelves,
+        feedback: item.tasks.filter(t => t.status === 'done').map(t => ({ id: t.id, feedback: t.feedback, outcome: t.outcome })) })).digest('hex')
+      if (item.lastFingerprint === fingerprint) {
+        await this.apply(item, { type: 'investigate' }); item.processedCommands.push(key)
+        return { item, run: false }
+      }
+      runId = randomUUID()
+      const now = this.clock().toISOString()
+      item.pendingInvestigation = { runId, requestId: key, startedAt: now }
+      item.revision++; item.updatedAt = now
+      item.history.push({ at: now, action: 'investigate_started', detail: caseCopy(item.locale, '开始 AI 证据调查；正在读取标注、统计交互并定位代表性视频证据。', 'AI 証拠調査を開始しました。注釈とインタラクションを確認し、代表的な動画証拠を特定しています。', 'AI evidence investigation started; reviewing annotations, interaction counts, and representative video evidence.', 'AI 증거 조사를 시작했습니다. 주석과 상호작용을 확인하고 대표 영상 증거를 찾고 있습니다.') })
+        return { item, run: true, fingerprint, context }
+    })
+    if (!prepared.run) return prepared.item
+    if (!prepared.context || !prepared.fingerprint) throw new CaseError('调查上下文未就绪，请重试。', 503)
+    if (this.modelBusy) {
+      await this.clearPending(id, runId, '已有 AI 调查正在运行，本次请求未启动。')
+      throw new CaseError('已有 AI 调查正在运行，请稍后重试。', 429)
+    }
+    this.modelBusy = true
+    try {
+      const result = await this.runModelInvestigation!(prepared.item.question, prepared.context, prepared.item.locale ?? 'zh')
+      if (result.status === 'error' || result.status === 'cancelled') throw new CaseError(`AI 调查未完成：${result.stopReason}`, 503)
+      return await this.mutate(async cases => {
+        const item = cases.find(c => c.id === id); if (!item) throw new CaseError('调查不存在。', 404)
+        if (item.pendingInvestigation?.runId !== runId) throw new CaseError('调查锁已变化，未保存旧结果，请刷新 Case。', 409)
+        const key = item.pendingInvestigation.requestId
+        item.report = result; item.reports ??= []; item.reports.push(result)
+        item.lastFingerprint = prepared.fingerprint
+        item.runsUsed++
+        if (!item.tasks.length) {
+          const taskId = randomUUID()
+          item.tasks.push({ id: taskId, title: caseCopy(item.locale, '现场检查货架和价签，并人工核对代表性视频', '売場と値札を現場で確認し、代表的な動画を人が照合する', 'Inspect the shelf and price label, then manually review representative clips', '매대와 가격표를 현장에서 확인하고 대표 영상을 직접 검토하기'), status: 'open' })
+          item.hypotheses.push({ explanation: caseCopy(item.locale, '货架或价签可能影响交互行为，需现场检查，尚无因果证据。', '棚や値札が行動に影響している可能性があります。現場確認が必要で、因果関係を示す証拠はまだありません。', 'The shelf or price label may influence interactions. Verify on site; no causal evidence is available yet.', '매대나 가격표가 상호작용에 영향을 줄 가능성이 있습니다. 현장 확인이 필요하며 아직 인과 증거는 없습니다.'), status: 'unverified', taskId })
+        }
+        item.pendingInvestigation = undefined
+        item.status = item.tasks.some(t => t.status === 'open') ? 'waiting_evidence' : 'awaiting_decision'
+        item.revision++; item.updatedAt = this.clock().toISOString()
+        item.history.push({ at: item.updatedAt, action: 'investigate', detail: caseCopy(item.locale, `AI 调查已保存；${result.execution} · ${result.usage.modelRequests} 次模型请求 · ${result.usage.toolCalls} 次工具调用 · ${result.stopReason}`, `AI 調査を保存しました；${result.execution} · モデル要求 ${result.usage.modelRequests} 回 · ツール呼び出し ${result.usage.toolCalls} 回 · ${result.stopReason}`, `AI investigation saved; ${result.execution} · ${result.usage.modelRequests} model requests · ${result.usage.toolCalls} tool calls · ${result.stopReason}`, `AI 조사 저장됨; ${result.execution} · 모델 요청 ${result.usage.modelRequests}회 · 도구 호출 ${result.usage.toolCalls}회 · ${result.stopReason}`) })
+        item.processedCommands.push(key)
+        return item
+      })
+    } catch (error) {
+      await this.clearPending(id, runId, error instanceof Error ? error.message : 'AI 调查失败。')
+      throw error instanceof CaseError ? error : new CaseError('AI 调查失败，Case 保留，可稍后重试。', 503)
+    } finally { this.modelBusy = false }
+  }
+  private async clearPending(id: string, runId: string, reason: string) {
+    await this.mutate(async cases => {
+      const item = cases.find(c => c.id === id)
+      if (!item || item.pendingInvestigation?.runId !== runId) return
+      item.pendingInvestigation = undefined; item.revision++; item.updatedAt = this.clock().toISOString()
+      item.history.push({ at: item.updatedAt, action: 'investigate_failed', detail: reason.slice(0, 300) })
+    })
+  }
   async dispatch(requestId: string) {
+    if (this.runModelInvestigation) {
+      const cases = await this.list()
+      const prior = cases.find(c => c.processedCommands.includes(nonempty(requestId, 100)))
+      if (prior) return { selected: prior, queue: queueFor(cases, this.clock()) }
+      const next = queueFor(cases, this.clock()).find(q => q.decision === 'continue')
+      if (!next) return { selected: null, queue: queueFor(cases, this.clock()) }
+      const item = cases.find(c => c.id === next.caseId)!
+      const selected = await this.command(item.id, item.revision, requestId, { type: 'investigate' })
+      return { selected, queue: queueFor(await this.list(), this.clock()) }
+    }
     return this.mutate(async cases => {
       const key = nonempty(requestId, 100)
       const prior = cases.find(c => c.processedCommands.includes(key)); if (prior) return { selected: prior, queue: queueFor(cases, this.clock()) }

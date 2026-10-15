@@ -1,18 +1,21 @@
-FROM node:22-alpine AS build
-
+FROM node:24-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN npm run build && npm run check:server
+RUN npm prune --omit=dev
 
-FROM nginx:1.27-alpine
-
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY NOTICE /usr/share/nginx/html/NOTICE
-EXPOSE 80
-
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget -q -O /dev/null http://127.0.0.1/ || exit 1
-
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:24-alpine
+WORKDIR /app
+ENV NODE_ENV=production SERVE_STATIC=true PORT=8080
+COPY --from=build --chown=node:node /app/node_modules ./node_modules
+COPY --from=build --chown=node:node /app/package.json ./package.json
+COPY --from=build --chown=node:node /app/server ./server
+COPY --from=build --chown=node:node /app/src ./src
+COPY --from=build --chown=node:node /app/public ./public
+COPY --from=build --chown=node:node /app/dist ./dist
+COPY NOTICE ./dist/NOTICE
+USER node
+EXPOSE 8080
+CMD ["node", "server/index.ts"]

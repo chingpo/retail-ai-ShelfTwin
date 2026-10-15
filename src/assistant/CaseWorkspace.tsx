@@ -1,10 +1,11 @@
-import { t, useLocale, formatDate, querySource } from '../i18n'
+import { t, useLocale, formatDate } from '../i18n'
 import { useEffect, useState } from 'react'
 import type { CaseAction, InvestigationCase, QueueItem } from './case-types'
 import type { UiCommand } from './commands'
 import './cases.css'
 import { CaseExamples, type CaseExample } from './CaseExamples'
 
+type ModelProvider = 'mock' | 'openai' | 'gemini'
 const labels = { investigating: '调查中', waiting_evidence: '等待证据', awaiting_decision: '待负责人决策', observing: '观察干预', closed: '已结束' }
 const decisions = { continue: '可推进', wait: '等待', escalate: '需决策', stop: '停止' }
 const outcomes = { improved: '放回比例下降', worsened: '放回比例上升', unchanged: '无明显变化', insufficient: '证据不足' }
@@ -12,8 +13,9 @@ const percent = (n: number | null) => n === null ? t('暂无数据') : `${(n * 1
 const dateInput = formatDate
 
 export function CaseWorkspace({ onClose, execute }: { onClose: () => void; execute: (command: UiCommand) => void }) {
-  useLocale()
+  const locale = useLocale()
   const [cases, setCases] = useState<InvestigationCase[]>([]), [queue, setQueue] = useState<QueueItem[]>([])
+  const [modelProvider, setModelProvider] = useState<ModelProvider | null>(null), [modelConfigured, setModelConfigured] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null), [busy, setBusy] = useState(false), [error, setError] = useState('')
   const [title, setTitle] = useState(t('饮料区放回调查')), [question, setQuestion] = useState(t('调查饮料区的放回行为，列出证据和需要补充的信息')), [owner, setOwner] = useState(t('门店负责人'))
   const [templateLoaded, setTemplateLoaded] = useState(false)
@@ -46,19 +48,24 @@ export function CaseWorkspace({ onClose, execute }: { onClose: () => void; execu
     try { await work(); await refresh() } catch (cause) { setError(cause instanceof Error ? cause.message : t('操作失败。')); try { await refresh() } catch {} }
     finally { setBusy(false) }
   }
-  useEffect(() => { void refresh().catch(cause => setError(cause.message)) }, [])
+  useEffect(() => {
+    void refresh().catch(cause => setError(cause.message))
+    void fetch('/api/agent/status').then(response => response.ok ? response.json() : null).then(status => {
+      if (status && ['mock', 'openai', 'gemini'].includes(status.provider)) { setModelProvider(status.provider); setModelConfigured(status.configured === true) }
+    }).catch(() => {})
+  }, [])
   useEffect(() => {
     if (selected) { setImpact(selected.impact); setReliability(selected.reliability); setActionability(selected.actionability); setCost(selected.cost); setMaxRuns(selected.maxRuns) }
   }, [selected?.id, selected?.revision])
   useEffect(() => { const escape = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }; window.addEventListener('keydown', escape); return () => window.removeEventListener('keydown', escape) }, [onClose])
-  const command = (action: CaseAction) => perform(async () => { if (selected) await api(`/cases/${selected.id}/commands`, { action, revision: selected.revision, requestId: crypto.randomUUID() }) })
+  const command = (action: CaseAction) => perform(async () => { if (selected) await api(`/cases/${selected.id}/commands`, { action, revision: selected.revision, requestId: crypto.randomUUID(), locale }) })
   const numeric = (label: string, value: number, set: (n: number) => void, max = 5, min = 1) => <label>{t(label)}<input type="number" min={min} max={max} required value={value} onChange={e => set(Number(e.target.value))} /></label>
   return <div className="case-scrim" onMouseDown={onClose}><section className="case-workspace" role="dialog" aria-modal="true" aria-labelledby="case-workspace-title" onMouseDown={e => e.stopPropagation()}>
-    <header><div><h2 id="case-workspace-title">{t("调查工作台")}</h2><p>{t("保存 Case → 现场反馈 → 干预复查 → 队列调度 · 本地固定流程，无模型调用")}</p></div><button aria-label={t("关闭工作台")} onClick={onClose}>×</button></header>
+    <header><div><h2 id="case-workspace-title">{t("持续跟进")}</h2><p>{modelProvider === 'mock' ? t("保存调查 → 现场补证 → 负责人决策 → 干预复查；首次调查使用本地固定流程，不调用模型。") : modelConfigured && modelProvider ? t(modelProvider === 'gemini' ? "首轮和后续证据调查由 Gemini 执行；现场反馈、决策与干预评估由负责人输入。" : "首轮和后续证据调查由 AI 执行；现场反馈、决策与干预评估由负责人输入。") : t("正在检查 AI 调查服务…")}</p></div><button aria-label={t("关闭工作台")} onClick={onClose}>×</button></header>
     {error && <p className="case-error" role="alert">{t(error)}</p>}
     <div className="case-columns"><aside>
-    <form onSubmit={e => { e.preventDefault(); void perform(async () => { const item = await api('/cases', { title, question: querySource(question), owner, requestId: crypto.randomUUID() }); setSelectedId(item.id) }) }}>
-    <h3>{t("创建调查")}</h3>{templateLoaded && <p className="case-template-loaded" role="status">{t("模板已填入，可修改后创建。")}</p>}<label>{t("标题")}<input required maxLength={120} value={title} onChange={e => setTitle(e.target.value)} /></label><label>{t("目标")}<textarea required maxLength={2000} value={question} onChange={e => setQuestion(e.target.value)} /></label><label>{t("负责人")}<input required maxLength={80} value={owner} onChange={e => setOwner(e.target.value)} /></label><button disabled={busy}>{t("创建 Case")}</button>
+    <form onSubmit={e => { e.preventDefault(); void perform(async () => { const item = await api('/cases', { title, question, owner, locale, requestId: crypto.randomUUID() }); setSelectedId(item.id); await api(`/cases/${item.id}/commands`, { action: { type: 'investigate' }, revision: item.revision, requestId: crypto.randomUUID(), locale }) }) }}>
+    <h3>{t("创建并开始调查")}</h3>{templateLoaded && <p className="case-template-loaded" role="status">{t("模板已填入，可修改后开始。")}</p>}<label>{t("标题")}<input required maxLength={120} value={title} onChange={e => setTitle(e.target.value)} /></label><label>{t("目标")}<textarea required maxLength={2000} value={question} onChange={e => setQuestion(e.target.value)} /></label><label>{t("负责人")}<input required maxLength={80} value={owner} onChange={e => setOwner(e.target.value)} /></label><button disabled={busy}>{busy ? t("正在创建并调查…") : t("创建并调查")}</button>
     </form>
     <button type="button" className="case-gallery-link" onClick={() => setSelectedId(null)}>{t("浏览场景模板")} ↗</button>
     <h3>{t("调查队列")}</h3><p className="case-note">{t("优先分数 = 影响 × 可靠性 × 可行动性 ÷ 成本。等待和已结束项不会被自动推进。")}</p>
@@ -70,7 +77,7 @@ export function CaseWorkspace({ onClose, execute }: { onClose: () => void; execu
     <h2>{selected.title}</h2><p>{selected.question}</p><p className="case-badge">{t(labels[selected.status])} · {selected.owner}{t(" · 预算 ")}{selected.runsUsed}/{selected.maxRuns}{t(" 次 · 更新 ")}{dateInput(selected.updatedAt)}</p>
     {selected.report && <section className="case-section"><h3>{t("已保存的事实与证据")}</h3><small>{t("调查内容保留原文")}</small><p>{selected.report.report.summary}</p>{selected.report.report.findings.map((f, index) => <article key={index}><p>{f.statement}</p>{f.evidenceRefs.map(ref => { const ev = selected.report!.evidence.find(e => e.eventRef === ref); return ev && <button key={ref} onClick={() => { execute({ type: 'open_evidence', eventRef: ref }); onClose() }}>{ev.shopperId} · {t(ev.action)} · {ev.seekTime.toFixed(2)}s →</button> })}</article>)}<ul>{selected.report.report.limitations.map((item, i) => <li key={i}>{item}</li>)}</ul></section>}
     <fieldset disabled={busy || selected.status === 'closed'}>
-    <div className="case-actions"><button disabled={selected.status !== 'investigating'} onClick={() => void command({ type: 'investigate' })}>{t("执行本地调查")}</button></div>
+    {selected.status === 'investigating' && !selected.report && <div className="case-actions"><button disabled={busy || (modelProvider !== null && modelProvider !== 'mock' && !modelConfigured)} onClick={() => void command({ type: 'investigate' })}>{t(modelProvider && modelProvider !== 'mock' ? "运行 AI 调查" : "执行本地调查")}</button></div>}
     <section className="case-section"><h3>{t("待办与现场反馈")}</h3>{selected.tasks.map(task => <article key={task.id}><strong>{task.title} · {task.status === 'done' ? t('已完成') : t('等待反馈')}</strong>{task.status === 'done' ? <p>{task.feedback}{t(" · 人工判断：")}{task.outcome === 'supports' ? t('支持假设') : task.outcome === 'refutes' ? t('反驳假设') : t('暂不能判断')}</p> : <div><textarea aria-label={t("现场反馈")} placeholder={t("填写现场检查结果")} value={feedback[task.id] ?? ''} onChange={e => setFeedback({ ...feedback, [task.id]: e.target.value })} /><select aria-label={t("假设判断")} value={feedbackOutcome[task.id] ?? 'unknown'} onChange={e => setFeedbackOutcome({ ...feedbackOutcome, [task.id]: e.target.value as 'supports' | 'refutes' | 'unknown' })}><option value="unknown">{t("暂不能判断假设")}</option><option value="supports">{t("人工判断：支持假设")}</option><option value="refutes">{t("人工判断：反驳假设")}</option></select><button disabled={!feedback[task.id]?.trim()} onClick={() => void command({ type: 'feedback', taskId: task.id, note: feedback[task.id], outcome: feedbackOutcome[task.id] ?? 'unknown' })}>{t("保存反馈")}</button></div>}</article>)}
     <div className="case-inline"><input aria-label={t("新待办")} placeholder={t("新增补证据待办")} value={taskTitle} onChange={e => setTaskTitle(e.target.value)} /><button disabled={!taskTitle.trim() || selected.status === 'observing'} onClick={() => void command({ type: 'add_task', title: taskTitle })}>{t("登记待办")}</button></div>
     {selected.hypotheses.map((h, i) => <p key={i}>{t("假设：")}{h.explanation} · {h.status === 'refuted' ? t('已被人工反馈反驳') : h.status === 'supported' ? t('人工反馈支持，尚非因果结论') : t('待验证')}</p>)}

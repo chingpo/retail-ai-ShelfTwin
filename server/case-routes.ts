@@ -28,7 +28,7 @@ export async function caseRoutes(request: IncomingMessage, response: ServerRespo
       if (!match[2] && request.method === 'GET') send(200, await store.get(match[1]))
       else if (match[2] && request.method === 'POST') {
         const input = await body(request)
-        send(200, await store.command(match[1], input.revision, input.requestId, input.action as CaseAction))
+        send(200, await store.command(match[1], input.revision, input.requestId, input.action as CaseAction, input.locale))
       } else throw new CaseError('请求方法不支持。', 405)
     }
   } catch (error) { send(error instanceof CaseError ? error.status : 500, { error: error instanceof CaseError ? error.message : 'Case 服务内部错误。' }) }

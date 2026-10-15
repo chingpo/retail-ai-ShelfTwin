@@ -37,6 +37,19 @@ test('adaptive multi-round investigation retains reasoning items and produces re
   assert.match(result.report.limitations.join(' '), /尚未观看/)
 })
 
+test('requested UI locale is sent to the model and report guardrails', async () => {
+  const requests: ModelRequest[] = []
+  const japaneseReport = { outcome: 'completed', title: '飲料売場の棚戻し', summary: '棚戻しの注釈が1件見つかりました。',
+    findings: [{ statement: 'サンプルにPUT BACKの注釈があります。', evidenceRefs: [ref] }], hypotheses: [], limitations: [], nextSteps: ['元動画を人が確認してください。'] }
+  const result = await investigate(context, '飲料売場の棚戻しを調べてください', scripted([
+    call('query_events', { action: 'PUT BACK' }), call('get_event_evidence', { eventRef: ref }), call('finish_investigation', japaneseReport),
+  ], requests), { locale: 'ja', execution: 'gemini' })
+  assert.match(requests[0].instructions, /Japanese/)
+  assert.match(String(requests[0].tools.find((tool: any) => tool.name === 'finish_investigation')?.description), /Japanese/)
+  assert.match(result.report.limitations.join(' '), /サンプル|棚|モデル/)
+  assert.doesNotMatch(result.report.limitations.join(' '), /独立策展样本|货架为演示映射/)
+})
+
 test('fabricated citations are rejected and correction can finish', async () => {
   const result = await investigate(context, '调查', scripted([
     call('query_events', {}), call('finish_investigation', report('invented')),

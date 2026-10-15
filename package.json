@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "test:agent": "node --test tests/agent-tools.test.ts tests/investigation.test.ts tests/agent-server.test.ts tests/openai-transport.test.ts tests/mock-investigation.test.ts tests/cases.test.ts",
+    "test:agent": "node --test tests/*.test.ts",
     "dev:agent": "node scripts/dev-agent.mjs",
     "agent:server": "node server/index.ts",
     "check:server": "tsc -p tsconfig.server.json"
   },
   "dependencies": {
+    "@google-cloud/firestore": "^9.3.1",
+    "@google/genai": "^2.29.1",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
     "react": "^19.1.1",

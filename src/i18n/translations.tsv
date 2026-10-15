@@ -394,3 +394,115 @@ SHOPPER 12	顾客 12	来店客 12
 以上为场景脚本，不代表当前数据已发现异常。模板只填入表单，具体指标与调查能力待后续实现。	Scenario scripts do not indicate anomalies in current data. Templates only populate the form; scenario-specific metrics and investigations are planned.	これはシナリオ例であり、現在のデータで異常を検出した結果ではありません。フォームに入力するだけで、専用の指標と調査機能は今後実装します。
 模板已填入，可修改后创建。	Template filled in. Edit it before creating your case.	テンプレートを入力しました。編集してケースを作成できます。
 浏览场景模板	Browse scenario templates	シナリオテンプレートを見る
+持续跟进	Ongoing follow-up	継続調査
+快速证据调查	Quick evidence investigation	クイック証拠調査
+保存调查 → 现场补证 → 负责人决策 → 干预复查；首次调查使用本地固定流程，不调用模型。	Save a case → collect on-site evidence → make an owner decision → review an intervention. The first investigation uses a local workflow and does not call a model.	調査を保存 → 現場で証拠を補足 → 責任者が判断 → 施策を再評価。初回調査はローカル処理で、モデルを呼び出しません。
+一次性问题 → 视频证据定位 → 调查报告；不保存长期 Case。	One-time question → locate video evidence → investigation report; no long-term case is saved.	単発の質問 → 動画証拠を特定 → 調査レポート。継続ケースは保存されません。
+创建并开始调查	Create and start investigation	ケースを作成して調査を開始
+创建并调查	Create and investigate	作成して調査
+正在创建并调查…	Creating case and investigating…	ケースを作成して調査中…
+模板已填入，可修改后开始。	Template filled in. Edit it before starting.	テンプレートを入力しました。編集して開始できます。
+可运行场景	Runnable scenarios	実行できるシナリオ
+选择当前样本支持的调查，或查看视频证据的能力边界。	Choose an investigation supported by the current sample, or inspect the limits of video evidence.	現在のサンプルで実行できる調査、または動画証拠の限界を確認できます。
+证据边界	Evidence limits	証拠の限界
+销量变化的原因能否判断？	Can video explain a sales change?	動画から売上変化の原因を判断できますか？
+视频可显示可观察到的拿取、放回与停留事件。	Video can show observed pick-up, put-back, and dwell events.	動画から把握できるのは、商品を手に取る・戻す・立ち止まる行動です。
+补充 POS 销售、库存、价格和促销数据，再核对时间范围。	Add POS sales, inventory, price, and promotion data, then align the time period.	POS売上、在庫、価格、販促データを加え、対象期間を揃えて確認します。
+先补齐销售与库存数据，再决定是否干预	Complete sales and inventory data before deciding on an intervention	施策を決める前に売上と在庫データを補います
+当前视频样本不能单独证明销量因果	The current video sample cannot establish sales causality on its own	現在の動画サンプルだけでは売上の因果関係を証明できません
+运行后会查询当前样本；现场检查、干预和后续指标需要人工录入。演示数据与模拟结果不代表真实经营结果。	Running an investigation queries the current sample. On-site checks, interventions, and follow-up metrics require manual entry. Demo data and simulated results do not represent real business outcomes.	調査を実行すると現在のサンプルを検索します。現場確認、施策、事後指標は手動入力が必要です。デモデータとシミュレーションは実際の経営結果を示すものではありません。
+Store overview	门店总览	店舗概要	매장 개요
+Products	商品	商品	상품
+Category insights	品类洞察	カテゴリー分析	카테고리 인사이트
+DEMO STORES	示例门店	デモ店舗	데모 매장
+Demo stores	示例门店	デモ店舗	데모 매장
+ACTIVE	当前	選択中	활성
+DEMO WORKSPACE	演示工作空间	デモワークスペース	데모 작업 공간
+PRODUCT & SPACE INTELLIGENCE	商品与空间洞察	商品・空間インサイト	상품 및 공간 인사이트
+▶ 产品导览	▶ Product tour	▶ 製品ガイド	▶ 제품 둘러보기
+界面语言	Interface language	表示言語	인터페이스 언어
+持续跟进	Ongoing follow-up	継続調査	지속 후속 관리
+快速证据调查	Quick evidence investigation	クイック証拠調査	빠른 증거 조사
+保存调查 → 现场补证 → 负责人决策 → 干预复查；首次调查使用本地固定流程，不调用模型。	Save a case → collect on-site evidence → make an owner decision → review an intervention. The first investigation uses a local workflow and does not call a model.	調査を保存 → 現場で証拠を補足 → 責任者が判断 → 施策を再評価。初回調査はローカル処理で、モデルを呼び出しません。	조사 저장 → 현장 증거 보강 → 책임자 결정 → 개입 조치 검토. 첫 조사는 모델을 호출하지 않는 로컬 절차로 진행됩니다.
+一次性问题 → 视频证据定位 → 调查报告；不保存长期 Case。	One-time question → locate video evidence → investigation report; no long-term case is saved.	単発の質問 → 動画証拠を特定 → 調査レポート。継続ケースは保存されません。	단일 질문 → 영상 증거 찾기 → 조사 보고서. 장기 케이스는 저장되지 않습니다.
+创建并开始调查	Create and start investigation	ケースを作成して調査を開始	케이스 생성 및 조사 시작
+创建并调查	Create and investigate	作成して調査	생성하고 조사하기
+正在创建并调查…	Creating case and investigating…	ケースを作成して調査中…	케이스 생성 및 조사 중…
+可运行场景	Runnable scenarios	実行できるシナリオ	실행 가능한 시나리오
+从一个门店问题开始	Start with a store question	店舗の課題から始める	매장 문제에서 시작하기
+选择当前样本支持的调查，或查看视频证据的能力边界。	Choose an investigation supported by the current sample, or inspect the limits of video evidence.	現在のサンプルで実行できる調査、または動画証拠の限界を確認できます。	현재 샘플에서 지원되는 조사를 선택하거나 영상 증거의 한계를 확인하세요.
+饮料区放回调查	Beverage put-back investigation	飲料棚の戻し行動調査	음료 진열대 상품 되돌림 조사
+调查饮料区的放回行为，列出证据和需要补充的信息	Investigate beverage put-backs; list evidence and missing information	飲料棚に戻す行動を調査し、証拠と不足情報を列挙してください	음료 진열대에서 상품을 되돌려 놓는 행동을 조사하고 증거와 추가 정보가 필요한 부분을 정리하세요
+创建调查	Create investigation	調査を作成	조사 만들기
+标题	Title	タイトル	제목
+目标	Objective	目的	목표
+负责人	Owner	担当者	담당자
+负责人决策	Owner decision	責任者の判断	책임자 결정
+待办与现场反馈	Tasks and on-site feedback	タスクと現場からの報告	할 일 및 현장 피드백
+已保存的事实与证据	Saved facts and evidence	保存済みの事実と証拠	저장된 사실 및 증거
+现场反馈	On-site feedback	現場からの報告	현장 피드백
+填写现场检查结果	Enter on-site inspection results	現場確認の結果を入力	현장 점검 결과 입력
+保存反馈	Save feedback	報告を保存	피드백 저장
+继续调查	Continue investigation	調査を続ける	조사 계속하기
+结束 Case	Close case	ケースを終了	케이스 종료
+调查队列	Investigation queue	調査キュー	조사 대기열
+推进最高优先级的一项	Advance the highest-priority item	最優先の項目を進める	우선순위가 가장 높은 항목 진행
+执行本地调查	Run local investigation	ローカル調査を実行	로컬 조사 실행
+已完成	Completed	完了	완료
+等待反馈	Awaiting feedback	報告待ち	피드백 대기 중
+措施	Intervention	施策	개입 조치
+数据来源	Data source	データソース	데이터 출처
+观察天数	Observation days	観察日数	관찰 기간(일)
+最小样本数	Minimum sample size	最小サンプル数	최소 표본 수
+保存并开始观察	Save and start observation	保存して観察を開始	저장하고 관찰 시작
+保存观察批次	Save observation batch	観察データを保存	관찰 데이터 저장
+按锁定计划复查	Evaluate against the locked plan	固定した計画に基づいて評価	확정된 계획에 따라 평가
+快速证据调查	Quick evidence investigation	クイック証拠調査	빠른 증거 조사
+调查饮料区的放回行为，给我事实、证据和需要补充的信息	Investigate beverage put-backs; provide facts, evidence and missing information	飲料棚に戻す行動を調査し、事実、証拠、不足情報を示してください	음료 진열대의 상품 되돌림 행동을 조사하고 확인된 사실, 증거, 추가로 필요한 정보를 알려주세요
+调查服务未连接或未配置。	Investigation service is disconnected or unconfigured.	調査サービスが未接続、または未設定です。	조사 서비스에 연결되지 않았거나 설정되지 않았습니다.
+调查完成	Investigation completed	調査完了	조사 완료
+关键证据不足	Key evidence missing	重要な証拠が不足	핵심 증거 부족
+事实与证据	Facts and evidence	事実と証拠	사실 및 증거
+待验证假设	Hypotheses to verify	検証すべき仮説	검증할 가설
+限制	Limitations	制限事項	제한 사항
+下一步	Next steps	次のステップ	다음 단계
+开始调查	Start investigation	調査を開始	조사 시작
+正在收集证据并整理报告，最多约两分钟…	Collecting evidence and preparing the report. This can take up to two minutes…	証拠を収集しレポートを作成しています。最大 2 分ほどかかります…	증거를 수집하고 보고서를 작성 중입니다. 최대 2분 정도 걸릴 수 있습니다…
+运行 AI 调查	Run AI investigation	AI 調査を実行	AI 조사 실행
+正在检查 AI 调查服务…	Checking AI investigation service…	AI 調査サービスを確認しています…	AI 조사 서비스를 확인하는 중…
+首轮和后续证据调查由 Gemini 执行；现场反馈、决策与干预评估由负责人输入。	Gemini runs the initial and follow-up evidence investigations. The owner enters field feedback, decisions, and intervention assessments.	初回と追加の証拠調査は Gemini が実行します。現場の報告、判断、施策評価は担当者が入力します。	초기 및 후속 증거 조사는 Gemini가 수행합니다. 현장 피드백, 의사 결정, 개입 평가 내용은 담당자가 입력합니다.
+首轮和后续证据调查由 AI 执行；现场反馈、决策与干预评估由负责人输入。	AI runs the initial and follow-up evidence investigations. The owner enters field feedback, decisions, and intervention assessments.	初回と追加の証拠調査は AI が実行します。現場の報告、判断、施策評価は担当者が入力します。	초기 및 후속 증거 조사는 AI가 수행합니다. 현장 피드백, 의사 결정, 개입 평가 내용은 담당자가 입력합니다.
+模拟实时样本回放	Simulated live sample replay	ライブ風サンプル再生	시뮬레이션 라이브 샘플 재생
+SAMPLE CAMERA WALL	SAMPLE CAMERA WALL	サンプルカメラ一覧	샘플 카메라 보기
+门店总览 · 多路实时演示	Store overview · Multi-feed live demo	店舗概要 · マルチカメラライブデモ	매장 개요 · 멀티 피드 라이브 데모
+12 路预录顾客样本轮播；模拟实时，不连接门店摄像头。点击事件可打开原始证据片段。	12 prerecorded shopper samples rotate here. This simulated live view is not connected to store cameras. Select an event to open its source clip.	12 本の来店者サンプル動画を順番に再生します。ライブ風のデモであり、店舗カメラには接続していません。イベントを選ぶと元の証拠クリップを開きます。	사전 녹화된 고객 샘플 12개를 순환 재생합니다. 실제 매장 카메라와 연결되지 않은 시뮬레이션이며, 이벤트를 선택하면 원본 증거 클립을 엽니다.
+模拟 Live	Simulated Live	ライブ風デモ	시뮬레이션 라이브
+暂停回放	Pause replay	再生を一時停止	재생 일시정지
+继续回放	Resume replay	再生を再開	재생 계속
+路样本视频	sample video feeds	本のサンプル動画	개 샘플 영상
+条标注事件	annotated events	件の注釈イベント	개 주석 이벤트
+本地样本 · 仅回放 · 无实时摄像头	Local samples · Replay only · No live cameras	ローカルサンプル · 再生のみ · 実カメラ未接続	로컬 샘플 · 재생 전용 · 실제 카메라 연결 안 됨
+预录样本	Recorded sample	録画サンプル	녹화 샘플
+镜头 	Feed 	カメラ 	카메라
+当前事件	Current event	現在のイベント	현재 이벤트
+视频时间	clip time	動画の時間	영상 시간
+标注事件	Annotated events	注釈イベント	주석 이벤트
+未标注事件	No annotated events	注釈イベントなし	주석된 이벤트 없음
+样本片段	sample clip	サンプルクリップ	샘플 클립
+查看证据	View evidence	証拠を見る	증거 보기
+回放事件流	Replay event stream	再生イベント	재생 이벤트 스트림
+打开对应证据	Open matching evidence	該当する証拠を開く	해당 증거 열기
+正在读取样本事件…	Loading sample events…	サンプルイベントを読み込み中…	샘플 이벤트 로딩 중…
+样本组 	Sample set 	サンプルセット 	샘플 세트
+上一组样本	Previous sample set	前のサンプルセット	이전 샘플 세트
+下一组样本	Next sample set	次のサンプルセット	다음 샘플 세트
+SINGLE CHANNEL DEMO	SINGLE CHANNEL DEMO	シングルチャンネルデモ	단일 채널 데모
+单屏连续播放不同顾客样本，片段间直接切换；模拟实时，不连接门店摄像头。	A single player cuts between prerecorded shopper samples. Simulated live; not connected to store cameras.	1つのプレーヤーで来店者サンプルを連続再生し、クリップ間を切り替えます。ライブ風のデモで、店舗カメラには接続していません。	단일 플레이어에서 사전 녹화된 고객 샘플을 연속 재생하고 클립 간 전환합니다. 실제 매장 카메라와 연결되지 않은 시뮬레이션입니다.
+单屏连续	Single stream	シングル再生	단일 스트림
+四路样本	Four-feed wall	4画面サンプル	4개 피드
+单屏连续播放	Continuous sample playback	サンプルを連続再生	샘플 연속 재생
+片段播放到结尾后自动切换到下一样本	The next sample starts when this clip ends	クリップの終了後、次のサンプルに切り替わります	클립이 끝나면 다음 샘플로 전환됩니다
+打开对应证据	Open matching evidence	該当する証拠を開く	해당 증거 열기
+查看此样本证据	View this sample's evidence	このサンプルの証拠を見る	이 샘플의 증거 보기
+下一样本	Next sample	次のサンプル	다음 샘플
+模拟 Live · 片段切换	Simulated Live · Sample cuts	ライブ風デモ · サンプル切替	시뮬레이션 라이브 · 샘플 전환

@@ -58,6 +58,7 @@ checkpoints/
 !CASE_WORKFLOW_ZH.md
 !AGENT_PROGRESS_ZH.md
 !UI_LANGUAGE_ZH.md
+!HACKATHON_DESCRIPTION_JA.md
 
 # Dataset assets and derived annotations (keep store-config.json)
 /public/data/RetailActionDemoAssets/

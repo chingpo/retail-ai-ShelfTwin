@@ -22,6 +22,7 @@ import type { UiCommand } from './assistant/commands'
 import { shopperSources } from './domain/shopper-sources'
 import { AgentDialog } from './assistant/AgentDialog'
 import { CaseWorkspace } from './assistant/CaseWorkspace'
+import { LiveReplay } from './LiveReplay'
 const demoStores = [
   { id: 'store-01', name: 'Riverside Market', offsetX: 0, offsetZ: 0 },
   { id: 'store-02', name: 'Midtown Grocery', offsetX: -0.65, offsetZ: 0.45 },
@@ -148,7 +149,7 @@ export default function App() {
   } : null, [baseStoreConfig, activeStore])
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null)
   const [selectedShelfId, setSelectedShelfId] = useState<string | null>(null)
-  const [activeMode, setActiveMode] = useState<'shopper' | 'product' | 'insights'>('product')
+  const [activeMode, setActiveMode] = useState<'shopper' | 'product' | 'insights' | 'evidence'>('shopper')
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
   const [allShopperData, setAllShopperData] = useState<Record<string, DemoData>>({})
   const [indexLoaded, setIndexLoaded] = useState(false)
@@ -198,7 +199,7 @@ export default function App() {
       if (!evidence) return
       const shopper = shopperSources.find(source => source.id === evidence.shopperId)
       if (!shopper) return
-      setActiveMode('shopper')
+      setActiveMode('evidence')
       if (shopper.id === activeShopperId && !customVideoSrc) jump(evidence.seekTime, evidence.eventId)
       else {
         selectShopper(shopper.id)
@@ -278,14 +279,14 @@ export default function App() {
   }, [journey, journeyPlaying])
   const active = data.events.find((event) => Math.abs(event.t - time) < 1.2)
   const tourSteps = [
-    { selector: '.main-nav', title: t('从这里切换工作视图'), text: t('门店总览、商品和品类洞察分别展示空间活动、商品证据链和跨样本汇总。点击侧栏任一入口即可切换。'), action: () => setActiveMode('product') },
+    { selector: '.live-replay', title: t('门店活动总览'), text: t('总览用单屏连续播放展示预录顾客样本，并提示标注的货架互动。'), action: () => setActiveMode('shopper') },
     { selector: '.product-catalog', title: t('选择一个商品'), text: t('商品目录连接货架和互动记录。选中商品后，下面会展开候选信息、互动数量和相关视频证据。'), action: () => { setActiveMode('product'); if (products[0]) selectProduct(products[0].id) } },
     { selector: '.product-story', title: t('商品说明与证据'), text: t('这里显示商品对应的货架、候选置信度和行为指标。点击任意视频证据，可以跳到对应顾客片段。'), action: () => { setActiveMode('product'); if (products[0]) selectProduct(products[0].id) } },
-    { selector: '.video-card', title: t('查看真实互动片段'), text: t('视频用于核对 PICK / PUT BACK 等行为。下方时间线和证据帧都可以点击，跳转到事件发生时刻。'), action: () => setActiveMode('shopper') },
-    { selector: '.scene-card', title: t('在数字地图里点选货架'), text: t('地图显示顾客轨迹、互动标记和货架区域。点击货架或事件标记，可以关联到视频和商品信息。'), action: () => setActiveMode('shopper') },
-    { selector: '.events', title: t('按时间浏览行为'), text: t('活动时间线汇总当前样本的互动。选中一条事件会同步视频位置和地图上的位置。'), action: () => setActiveMode('shopper') },
+    { selector: '.video-card', title: t('查看真实互动片段'), text: t('视频用于核对 PICK / PUT BACK 等行为。下方时间线和证据帧都可以点击，跳转到事件发生时刻。'), action: () => setActiveMode('evidence') },
+    { selector: '.scene-card', title: t('在数字地图里点选货架'), text: t('地图显示顾客轨迹、互动标记和货架区域。点击货架或事件标记，可以关联到视频和商品信息。'), action: () => setActiveMode('evidence') },
+    { selector: '.events', title: t('按时间浏览行为'), text: t('活动时间线汇总当前样本的互动。选中一条事件会同步视频位置和地图上的位置。'), action: () => setActiveMode('evidence') },
     { selector: '.clusters', title: t('比较品类与货架'), text: t('品类洞察按映射货架聚合多个样本，点击分类可继续查看商品或回到视频证据。'), action: () => setActiveMode('insights') },
-    { selector: '.ask-agent', title: t('用自然语言查找线索'), text: t('ShelfTwin Agent 可以回答商品、放回行为和视频证据相关的问题，并提供可点击的结果入口。'), action: () => setAgentOpen(true) },
+    { selector: '.follow-up-action', title: t('持续跟进工作流'), text: t('调查记录可以持续补充证据；AI 协助调查，现场反馈、决策和干预评估由负责人记录。'), action: () => setActiveMode('shopper') },
   ]
   const activeTour = tourStep === null ? null : tourSteps[tourStep]
   const currentTourStep = tourStep ?? 0
@@ -330,13 +331,14 @@ export default function App() {
     <div className="nav-footer"><span>{t("DEMO WORKSPACE")}</span><small>{t("Sample data · 3 store layouts")}</small></div>
     </aside>
     <div className="app-content">
-    <header><div><p className="eyebrow">{t("PRODUCT & SPACE INTELLIGENCE")}</p><h1>{activeMode === 'product' ? t('Products') : activeMode === 'insights' ? t('Category insights') : t('Store overview')}</h1></div><div className="header-actions"><LanguageSelector /><button className="tour-launch" onClick={() => { setTourPlaying(false); setTourStep(0) }}>{t("▶ 产品导览")}</button><button className="ask-agent" onClick={() => setCasesOpen(true)}>{t("调查工作台")}</button><button className="ask-agent" onClick={() => setAgentOpen(true)}>{t("✦ Ask ShelfTwin ")}<kbd>⌘ K</kbd></button><div className="filter-chip">{t("Today ")}<b>⌄</b></div><div className="status"><span />{t(" Demo dataset")}</div></div></header>
+    <header><div><p className="eyebrow">{t("PRODUCT & SPACE INTELLIGENCE")}</p><h1>{activeMode === 'product' ? t('Products') : activeMode === 'insights' ? t('Category insights') : activeMode === 'evidence' ? t('Evidence review') : t('Store overview')}</h1></div><div className="header-actions"><div className="utility-actions"><button className="tour-utility" onClick={() => { setTourPlaying(false); setTourStep(0) }}>{t("▶ 产品导览")}</button><LanguageSelector /></div><div className="primary-actions"><button className="ask-agent quick-evidence" onClick={() => setAgentOpen(true)}>{t("快速证据调查")}<kbd>⌘ K</kbd></button><button className="ask-agent follow-up-action" onClick={() => setCasesOpen(true)}>{t("持续跟进")}</button><div className="filter-chip">{t("Today ")}<b>⌄</b></div><div className="status"><span />{t(" Demo dataset")}</div></div></div></header>
     <div className="prototype-note"><b>{t("DATA CONTEXT")}</b><span>{t("Video interactions are RetailAction evidence. Store locations and product links are configurable planogram associations in this prototype.")}</span></div>
     {(queryContext.status !== 'ready' || activeDataError) && <p role="status" className="product-lens-note">{activeDataError ? t('当前样本加载失败，未使用示例事件代替。') : queryContext.status === 'loading' ? t('正在加载事件索引…') : `${t('数据未完整加载：')}${queryContext.errors.join(', ')}. ${t('当前统计仅含成功加载的数据，问答排名暂不可用。')}`}</p>}
     {casesOpen && <CaseWorkspace execute={executeCommand} onClose={() => setCasesOpen(false)} />}
     {agentOpen && <AgentDialog context={queryContext} execute={executeCommand} onClose={() => setAgentOpen(false)} />}
     {activeMode === 'product' && <section className="product-lens panel"><div className="product-lens-heading"><div><p className="eyebrow">{t("PRODUCT LENS")}</p><h2>{t("Start from a product, follow the evidence.")}</h2></div><span>{t("CATALOG → SHELF → INTERACTION → SHOPPER → VIDEO")}</span></div><div className="product-catalog">{products.map((product) => <button key={product.id} className={selectedProduct?.id === product.id ? 'selected' : ''} onClick={() => selectProduct(product.id)}><i>{product.shelf.category.slice(0, 1)}</i><span>{t(product.name)}</span><small>{t(product.shelf.category)}</small></button>)}</div>{selectedProduct && <div className="product-story"><div className="product-identity"><div className="product-tile">{selectedProduct.shelf.category.slice(0, 1)}</div><div><small>{t("PLANOGRAM CANDIDATE")}</small><h3>{t(selectedProduct.name)}</h3><p>{t(selectedProduct.shelf.name)}{t(" · candidate confidence ")}{Math.round(selectedProduct.confidence * 100)}%</p></div></div><div className="product-metrics"><div><b>{productEvents.length}</b><span>{t("shelf interactions")}</span></div><div><b>{new Set(productEvents.map((event) => event.shopperId)).size}</b><span>{t("shopper tracks")}</span></div><div><b>{productEvents.filter((event) => event.type === 'PICK').length}</b><span>{t("picks")}</span></div></div><div className="product-events"><small>{t("SHELF-ASSOCIATED VIDEO EVIDENCE")}</small>{productEvents.length ? productEvents.map((event) => <button key={`${event.shopperId}-${event.id}`} onClick={() => openProductEvent(event)}><strong>{t(event.shopperLabel)}</strong><span>{t(event.type)} · {event.t.toFixed(2)}s</span><em>{t("Open video →")}</em></button>) : <p>{t("No interaction clip is curated for this shelf yet.")}</p>}</div></div>}<p className="product-lens-note">{t("This product view uses a configurable planogram association. With a real catalog, barcode/OCR, inventory or POS signal, the same cards can be promoted from candidate to confirmed.")}</p></section>}
     {activeMode === 'insights' && <section className="clusters panel"><div className="product-lens-heading"><div><p className="eyebrow">{t("CURATED CROSS-SAMPLE AGGREGATE")}</p><h2>{t("Product & shelf clusters")}</h2></div><span>{t("NOT A SINGLE STORE SESSION")}</span></div><div className="cluster-layout"><div className="cluster-list">{clusters.map((cluster) => <button key={cluster.shelf.id} className={selectedCluster?.shelf.id === cluster.shelf.id ? 'selected' : ''} onClick={() => setSelectedShelfId(cluster.shelf.id)}><i>{cluster.shelf.category.slice(0, 1)}</i><span><strong>{t(cluster.shelf.category)}</strong><small>{cluster.shelf.sku_candidates.length}{t(" product candidates")}</small></span><b>{cluster.events.length}</b></button>)}</div>{selectedCluster && <div className="cluster-detail"><div className="cluster-detail-title"><div className="product-tile">{selectedCluster.shelf.category.slice(0, 1)}</div><div><small>{t("SELECTED CLUSTER")}</small><h3>{t(selectedCluster.shelf.name)}</h3><p>{selectedCluster.shelf.sku_candidates.map((product) => t(product.name)).join(' · ')}</p></div></div><div className="cluster-metrics"><div><b>{selectedCluster.events.length}</b><span>{t("shelf interactions")}</span></div><div><b>{selectedCluster.shoppers}</b><span>{t("shoppers")}</span></div><div><b>{selectedCluster.picks}</b><span>{t("picks")}</span></div><div><b>{selectedCluster.puts}</b><span>{t("put backs")}</span></div></div><div className="cluster-video-list"><small>{t("DRILL DOWN TO EVIDENCE")}</small>{selectedCluster.events.length ? selectedCluster.events.map((event) => <button key={`${event.shopperId}-${event.id}`} onClick={() => openProductEvent(event)}><strong>{t(event.shopperLabel)}</strong><span>{t(event.type)} · {event.t.toFixed(2)}s</span><em>{t("View video →")}</em></button>) : <p>{t("Map-only cluster: add more clips mapped to this shelf to grow this cluster.")}</p>}</div><button className="explore-cluster" onClick={() => { const product = products.find((item) => item.shelf.id === selectedCluster.shelf.id); if (product) { setActiveMode('product'); selectProduct(product.id) } }}>{t("Explore product cluster →")}</button></div>}</div><p className="product-lens-note">{t("Counts aggregate the bundled RetailAction samples after configurable shelf mapping. They demonstrate the drill-down interaction; they are not transaction totals from a single physical store.")}</p></section>}
+    {activeMode === 'shopper' ? <LiveReplay data={allShopperData} /> : <>
     <section className="workspace">
     <article className="video-card panel"><div className="panel-title"><span>{journey ? t('REFERENCE INTERACTION CLIP · INDEPENDENT SAMPLE') : t('RETAILACTION · DUAL INTERACTION CLIP')}</span><time>{time.toFixed(1).padStart(4, '0')}s</time></div>
     {videoAvailable ? <video onLoadedMetadata={() => {
@@ -361,6 +363,7 @@ export default function App() {
     <div className="provenance-grid"><div><small>{t("VIDEO EVIDENCE")}</small><span>{storeConfig?.provenance?.interaction_video ?? 'RetailAction labeled interaction clip'}</span></div><div><small>{t("MAP ASSOCIATION")}</small><span>{storeConfig?.provenance?.store_map ?? 'Configured digital-twin demonstration map'}</span></div><div><small>{t("PRODUCT SOURCE")}</small><span>{storeConfig?.provenance?.product_catalog ?? 'Demo planogram candidates'}</span></div></div>
     <p className="inspector-note">{t("Production replacement path: same-store camera calibration → projected coordinates → real shelf polygons → planogram / inventory / POS-supported product association.")}</p>
     </section>}
+    </>}
     </div>
     {activeTour && tourRect && <div className="tour-layer" role="dialog" aria-live="polite">
     <button className="tour-backdrop" aria-label={t("关闭产品导览")} onClick={() => { setTourStep(null); setTourPlaying(false) }} />
