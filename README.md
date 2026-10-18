@@ -2,6 +2,34 @@
 
 Hackathon-ready local demo: camera-video time drives a 3D supermarket shopper path and an interactive event timeline.
 
+## Explainable Video Retrieval
+
+> **Example Query:** "Find customers who picked up a product but put it back."
+
+<table>
+  <tr>
+    <td align="center" width="180">
+      <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/video.svg" width="28" />
+      <br/>
+      <strong>Video Frames</strong>
+    </td>
+    <td align="center">→</td>
+    <td align="center" width="180">
+      <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/search.svg" width="28" />
+      <br/>
+      <strong>Event Retrieval</strong>
+    </td>
+    <td align="center">→</td>
+    <td align="center" width="180">
+      <img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/map-pin.svg" width="28" />
+      <br/>
+      <strong>Spatial Context</strong>
+    </td>
+  </tr>
+</table>
+
+*Retrieval goes beyond visual similarity between individual frames, capturing when and where an event occurs and how it unfolds over time.*
+
 ## Start
 
 ```bash
@@ -57,9 +85,9 @@ Choose a few legible clips only; this project does not run a Kaggle submission o
 
 ## Agent investigation
 
-Run `npm run dev:agent` (Node 22.18+ or 24+) for the default local investigation workflow. No API key or paid calls are needed: tools read real bundled data and reports use fixed rules/templates. OpenAI is optional and only enabled with explicit `AGENT_PROVIDER=openai` plus server credentials. Setup: [中文运行说明](AGENT_SETUP_ZH.md).
+Run `npm run dev:agent` (Node 22.18+ or 24+) for the default local investigation workflow. No API key or paid calls are needed: tools read real bundled data and reports use fixed rules/templates. OpenAI is optional and only enabled with explicit `AGENT_PROVIDER=openai` plus server credentials.
 
-The **调查工作台** button opens persistent local cases, feedback tasks, intervention review and a priority queue. State is stored at `.local/agent-cases.json`. This workspace always uses local rules, with no model API requests. [中文阶段 2–4 说明](CASE_WORKFLOW_ZH.md).
+The **Investigation Workspace** button opens persistent local cases, feedback tasks, intervention review and a priority queue. State is stored at `.local/agent-cases.json`. This workspace always uses local rules, with no model API requests.
 
 ## Google Cloud review deployment
 
@@ -78,7 +106,3 @@ Gemini uses the existing bounded investigation engine and validates evidence ref
 Submission: provide the deployed URL in the hackathon's operation instructions; the current deployment requires no login. Keep the submitted default branch and deployed version available through December 1, 2026. Verify the actual promotional credit balance and expiry in the billing console; CLI billing-account linkage does not prove a credit balance.
 
 Validation: `npm run build`, `npm run check:server`, `npm run test:agent`. Cloud tests cover Gemini tool continuation, review authentication, same-origin checks, asset ranges and model quota rejection.
-
-### Native spending pause (configured 2026-10-14)
-
-Native Cloud Billing spend caps are configured for the review project: Vertex AI/Gemini at JPY 10,000 per calendar month, and Cloud Run at JPY 5,000 per calendar month. They use gross estimated costs before credits, automatically pause the corresponding service when enforced, and reset/unpause at the next monthly period. Enforcement is delayed and requests already in progress can finish. They do not cap the project's total lifetime spend or stop Firestore, Cloud Build, Artifact Registry, or stored resources. Configuration receipts are kept in the ignored `.local/spend-caps.json`; no app redeployment is needed. Budget threshold notifications are enabled as required by the spend-cap API.
