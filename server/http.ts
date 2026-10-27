@@ -42,14 +42,17 @@ export function createAgentServer(options: { getContext: () => Promise<QueryCont
         response.end('ShelfTwin review login required.'); return
       }
     }
-    // Local service: only same-origin JSON requests; no permissive CORS.
-    if (request.headers['sec-fetch-site'] === 'cross-site') return send(response, 403, { error: '仅支持本地同源请求。' })
-    const origin = request.headers.origin
-    if (origin) {
-      try {
-        const url = new URL(origin)
-        if (!['http:', 'https:'].includes(url.protocol) || url.host !== request.headers.host) return send(response, 403, { error: '请求来源不受支持。' })
-      } catch { return send(response, 403, { error: '请求来源无效。' }) }
+    // Keep API calls same-origin, while allowing visitors to open the site
+    // from external links (for example, GitHub's repository About section).
+    if (path?.startsWith('/api/')) {
+      if (request.headers['sec-fetch-site'] === 'cross-site') return send(response, 403, { error: '仅支持本地同源请求。' })
+      const origin = request.headers.origin
+      if (origin) {
+        try {
+          const url = new URL(origin)
+          if (!['http:', 'https:'].includes(url.protocol) || url.host !== request.headers.host) return send(response, 403, { error: '请求来源不受支持。' })
+        } catch { return send(response, 403, { error: '请求来源无效。' }) }
+      }
     }
     if (await caseRoutes(request, response, options.caseStore)) return
     if (path === '/api/agent/status' && request.method === 'GET') {
