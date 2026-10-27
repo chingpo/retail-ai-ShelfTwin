@@ -57,6 +57,10 @@ docker run --rm -p 8080:8080 retail-ai-shelftwin:latest
 
 `NOTICE` is included in the image because the demo distributes selected RetailAction sample materials.
 
+### RetailAction data and license
+
+This demo includes selected, deidentified RetailAction sample videos and related annotations from [Standard AI's RetailAction dataset](https://huggingface.co/datasets/standard-cognition/RetailAction). The dataset materials are licensed under the [Standard.AI Dataset License](licenses/RETAILACTION-LICENSE.txt); the included `NOTICE` preserves the required attribution. Keep the data deidentified and do not attempt to identify people in it. If products or services using these materials generate more than USD 10,000 in revenue, the license requires requesting a separate license from Standard.
+
 The project opens with RetailAction sample `001078` automatically loaded. The video and its generated spatial-event JSON live in `public/data/RetailActionDemoAssets/001078/`. The local file controls remain available for testing additional clips.
 
 ## Replace mock data
